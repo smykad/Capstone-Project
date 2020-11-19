@@ -110,7 +110,7 @@ namespace Capstone_Project
         }
         /// <summary>
         /// *****************************************************************
-        /// *                      DATA RECORDER                            *
+        /// *                      ROOM DATA MENU                          *
         /// *****************************************************************
         /// </summary>
         static void DisplayRoomMenuScreen()
@@ -118,14 +118,15 @@ namespace Capstone_Project
             Console.CursorVisible = true;
 
             int numberOfRooms = 0;
-            int[] roomsizes = null;
+            int[] roomSizes = null;
+            string[] roomNames = null;
 
             bool quitApplication = false;
             string menuChoice;
 
             do
             {
-                DisplayScreenHeader("Square Foot Evaluation Menu");
+                DisplayScreenHeader("User Data Menu");
 
                 //
                 // get user menu choice
@@ -133,7 +134,7 @@ namespace Capstone_Project
                 Console.WriteLine("\tA: Number of Rooms");
                 Console.WriteLine("\tB: Room Data");
                 Console.WriteLine("\tC: Show Data");
-                Console.WriteLine("\tD: Total Sq Ft");
+                Console.WriteLine("\tD: ");
                 Console.WriteLine("\tE: ");
                 Console.WriteLine("\tF: ");
                 Console.WriteLine("\tG: ");
@@ -153,22 +154,22 @@ namespace Capstone_Project
                         break;
 
                     case "b":
-                        roomsizes = DisplayGetRoomSizeData(numberOfRooms);
+                        DisplayGetRoomNameAndSizeData(numberOfRooms, out roomSizes, out roomNames);
                         break;
 
                     case "c":
-                        DisplayRoomSizeData(roomsizes);
+                        DisplayRoomSizeNameData(roomSizes, roomNames);
                         break;
 
                     case "d":
-                        DisplayTotalSqFtData(roomsizes);
+
                         break;
 
                     case "e":
-
+                        
                         break;
                     case "f":
-                        DisplayCredentials();
+                        
                         break;
 
                     case "g":
@@ -189,60 +190,90 @@ namespace Capstone_Project
 
             } while (!quitApplication);
         }
-
-        private static void DisplayTotalSqFtData(int[] roomsizes)
+        /// <summary>
+        /// ******************************************************
+        /// 
+        /// ******************************************************
+        /// </summary>
+        /// <param name="roomsizes"></param>
+        static void DisplayTotalSqFtData(int[] roomSizes)
         {
-            int sum = roomsizes.Sum();
-
-            DisplayScreenHeader("Total Square Footage");
+            int sum = roomSizes.Sum();
 
             Console.WriteLine($"\tThe total square footage is {sum}");
-
-            DisplayMenuPrompt("Room Data Menu");
         }
-
-        static void DisplayRoomSizeData(int[] roomsizes)
+        /// <summary>
+        /// ******************************************************
+        /// 
+        /// ******************************************************
+        /// </summary>
+        /// <param name="roomSizes"></param>
+        /// <param name="roomNames"></param>
+        static void DisplayRoomSizeNameData(int[] roomSizes, string[] roomNames)
         {
-            
+
             DisplayScreenHeader("\t\tRoom Size Data");
 
             Console.WriteLine(string.Format($"{"Room",17}    {"Square Footage",17}"));
             Console.WriteLine();
 
-            for (int i = 0; i < roomsizes.Length; i++)
+            for (int i = 0; i < roomSizes.Length; i++)
             {
-                string room = roomsizes[i].ToString("n2");
-                Console.WriteLine(string.Format($"{i + 1,14}{room,15}"));
+                string room = roomSizes[i].ToString("n2");
+                string roomName = roomNames[i];
+                Console.WriteLine(string.Format($"\t{roomName}{room,15}"));
             }
-            DisplayMenuPrompt("Room Data Menu");
+
+            Console.WriteLine();
+            Console.WriteLine();
+            DisplayTotalSqFtData(roomSizes);
+            DisplayMenuPrompt("User Data Menu");
 
         }
-
-        static int[] DisplayGetRoomSizeData(int numberOfRooms)
+        /// <summary>
+        /// ******************************************************
+        /// 
+        /// ******************************************************
+        /// </summary>
+        /// <param name="numberOfRooms"></param>
+        /// <param name="sizes"></param>
+        /// <param name="names"></param>
+        static void DisplayGetRoomNameAndSizeData(int numberOfRooms, out int[] sizes, out string[] names)
         {
             int[] roomSizes = new int[numberOfRooms];
+            string[] roomNames = new string[numberOfRooms];
             int length;
             int width;
-
+            string roomName;
             DisplayScreenHeader("Get Room Size Data");
 
             for (int i = 0; i < numberOfRooms; i++)
             {
-                length = PromptUserForInt($"Enter length of room {i + 1}: ");
-                width = PromptUserForInt($"Enter width of room {i + 1}: ");
+                Console.Write("\tEnter Room Name: ");
+                roomName = Console.ReadLine();
+                length = PromptUserForInt($"Enter length of {roomName}: ");
+                width = PromptUserForInt($"Enter width of {roomName}: ");
                 roomSizes[i] = (length * width);
+                roomNames[i] = roomName;
             }
-            DisplayMenuPrompt("Room Data Menu");
-            return roomSizes;
+            DisplayMenuPrompt("User Data Menu");
+            sizes = roomSizes;
+            names = roomNames;
         }
 
+        /// <summary>
+        /// ******************************************************
+        /// 
+        /// ******************************************************
+        /// </summary>
+        /// <returns></returns>
         static int DisplayGetNumberOfRoomsData()
         {
             DisplayScreenHeader("Get Number of Rooms");
             int ret;
             ret = PromptUserForInt("Enter number of Rooms: ");
 
-            DisplayMenuPrompt("Room Data Menu");
+            DisplayMenuPrompt("User Data Menu");
             return ret;            
         }
 
