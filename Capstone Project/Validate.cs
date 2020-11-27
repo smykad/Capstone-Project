@@ -8,78 +8,55 @@ namespace Capstone_Project
 {
     public class Validate
     {
-    
-    
-        /// <summary>
-        /// ******************************************************
-        ///             Read Integer Overload
-        /// ******************************************************
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <returns></returns>
-        public static int ReadInteger(string prompt)
-        {
-            int ret;
-            Console.Write($"\t{prompt}");
-            ret = IsValidInt();
-            return ret;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             Read Integer Overload that takes
-        ///             threshold
-        /// ******************************************************
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public static int ReadInteger(string prompt, int min, int max)
-        {
-            Console.Write(prompt);
-            int thresholdValue = IsValidInt();
-            thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
-            return thresholdValue;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             Read Double Overload
-        /// ******************************************************
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <returns></returns>
-        public static double ReadDouble(string prompt)
-        {
-            double ret;
-            Console.Write($"\t{prompt}");
-            ret = IsValidDouble();
-            return ret;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             Read Double Overload that takes
-        ///             threshold
-        /// ******************************************************
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public static double ReadDouble(string prompt, int min, int max)
-        {
+        private string _prompt;
+        private int _integer;
+        private double _double;
 
-            Console.Write(prompt);
-            double thresholdValue = IsValidDouble();
-            thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
-            return thresholdValue;
+        public double Double
+        {
+            get { return _double; }
+            set { _double = value; }
         }
-        /// <summary>
-        /// ******************************************************
-        ///         Validate Integer
-        /// ******************************************************
-        /// </summary>
-        /// <returns></returns>
-        static int IsValidInt()
+        public string Prompt
+        {
+            get { return _prompt; }
+            set { _prompt = value; }
+        }
+        public int Integer
+        {
+            get { return _integer; }
+            set { _integer = value; }
+        }
+        public Validate(string prompt, string type)
+        {
+            _prompt = prompt;
+            Console.Write($"\t{prompt}");
+            if (type == "integer")
+            {
+                _integer = IsValidInt();
+            }
+            if (type == "double")
+            {
+                _double = IsValidDouble();
+            }
+        }
+        public Validate(string prompt, string type, int min, int max)
+        {
+            _prompt = prompt;
+            Console.Write($"\t{prompt}");
+            if (type == "integer")
+            {
+                _integer = IsValidInt();
+                _integer = IsValidThresholdAndRange(_integer, min, max);
+            }
+            if (type == "double")
+            {
+                _double = IsValidDouble();
+                _double = IsValidThresholdAndRange(_double, min, max);
+            }
+        }
+
+        int IsValidInt()
         {
             bool IsValidInt = false;
             int validInt = 0;
@@ -95,13 +72,7 @@ namespace Capstone_Project
             }
             return validInt;
         }
-        /// <summary>
-        /// ******************************************************
-        ///             Validate Double
-        /// ******************************************************
-        /// </summary>
-        /// <returns></returns>
-        static double IsValidDouble()
+        double IsValidDouble()
         {
             bool IsValidDouble = false;
             double validDouble = 0;
@@ -117,16 +88,8 @@ namespace Capstone_Project
             }
             return validDouble;
         }
-        /// <summary>
-        /// ******************************************************
-        ///             Overload for validating int threshold
-        /// ******************************************************
-        /// </summary>
-        /// <param name="thresholdValue"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        static int IsValidThresholdAndRange(int thresholdValue, int min, int max)
+
+        int IsValidThresholdAndRange(int thresholdValue, int min, int max)
         {
             bool isValidThreshold = false;
             while (!isValidThreshold)
@@ -144,16 +107,8 @@ namespace Capstone_Project
             }
             return thresholdValue;
         }
-        /// <summary>
-        /// ******************************************************
-        ///             Overload for validating double threshold
-        /// ******************************************************
-        /// </summary>
-        /// <param name="thresholdValue"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        static double IsValidThresholdAndRange(double thresholdValue, int min, int max)
+
+        double IsValidThresholdAndRange(double thresholdValue, int min, int max)
         {
             bool isValidThreshold = false;
             while (!isValidThreshold)
@@ -171,13 +126,6 @@ namespace Capstone_Project
             }
             return thresholdValue;
         }
-
-        /// <summary>
-        /// ******************************************************
-        ///         VALIDATES USER STRING INPUT    
-        /// ******************************************************
-        /// </summary>
-        /// <returns></returns>
         public static string ReadString()
         {
             bool validString = false;

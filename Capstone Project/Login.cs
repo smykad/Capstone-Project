@@ -105,7 +105,8 @@ namespace Capstone_Project
             //
             // Get Cipher Key
             //
-            key = Validate.ReadInteger("Enter a cipher value between 1 and 26: ", 1, 26);
+            Validate keyValue = new Validate("Enter a cipher value between 1 and 26: ", "integer", 1, 26);
+            key = keyValue.Integer;
             encryptedPassword = Cipher.Encrypt(password, key);
 
             //
@@ -188,8 +189,9 @@ namespace Capstone_Project
 
                 //
                 // Prompt for key
-                //                
-                key = Validate.ReadInteger("Enter Key: ");
+                //
+                Validate keyValue = new Validate("Enter Key: ", "integer");
+                key = keyValue.Integer;
 
                 //
                 // Encrypt Password
@@ -210,7 +212,8 @@ namespace Capstone_Project
                 }
                 else
                 {
-                    Theme.DisplayContinuePrompt();
+                    Theme.DisplayMenuPrompt("Login Menu");
+                    DisplayLoginMenuScreen();
                 }
 
             } while (!validLogin);
@@ -398,7 +401,8 @@ namespace Capstone_Project
             //
             // Prompt user for key
             //
-            key = Validate.ReadInteger("Enter Key: ");
+            Validate keyValue = new Validate("Enter Key: ", "integer");
+            key = keyValue.Integer;
 
             //
             // Read File to retriave password

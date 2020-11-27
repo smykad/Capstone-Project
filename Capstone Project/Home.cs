@@ -180,12 +180,13 @@ namespace Capstone_Project
             //
             // Initialize variables
             //
+            
             int[] roomSizes = new int[numberOfRooms];
             string[] roomNames = new string[numberOfRooms];
             string roomAndSizes;
             string strRmSize;
-            int length, width, roomSize, sum;
-            string roomName;
+            int roomSize, sum;
+            string roomName = "";
             string dataPath = @"Data/UserHomes.txt";
 
             //
@@ -221,10 +222,10 @@ namespace Capstone_Project
                 Console.Write("\tEnter Room Name: ");
                 roomName = Validate.ReadString();
 
-                length = Validate.ReadInteger($"Enter length of {roomName}: ");
-                width = Validate.ReadInteger($"Enter width of {roomName}: ");
-
-                roomSize = length * width;
+                Validate length = new Validate($"Enter length of {roomName}: ", "integer");
+                Validate width = new Validate($"Enter width of {roomName}: ", "integer");
+;
+                roomSize = length.Integer * width.Integer;
 
                 strRmSize = roomSize.ToString();
 
@@ -288,7 +289,8 @@ namespace Capstone_Project
             //
             // Prompt user for number of Rooms
             //
-            ret = Validate.ReadInteger("Enter number of Rooms: ");
+            Validate rooms = new Validate("Enter number of Rooms: ", "integer");
+            ret = rooms.Integer;
 
             //
             // Echo input back to user
