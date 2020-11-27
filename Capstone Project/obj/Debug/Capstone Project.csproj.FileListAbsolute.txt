@@ -7,3 +7,4 @@ C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone 
 C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\obj\Debug\Capstone Project.pdb
 C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\bin\Debug\Data\Logins.txt
 C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\bin\Debug\Data\UserNames.txt
+C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\bin\Debug\Data\UserHomes.txt

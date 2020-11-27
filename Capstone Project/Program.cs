@@ -14,20 +14,25 @@ namespace Capstone_Project
     // Description: Calculate square footage of a house
     // Author: Smyka, Doug
     // Dated Created: 11/19/2020
-    // Last Modified: 11/19/2020
+    // Last Modified: 11/27/2020
     //
     // **************************************************
     class Program
     {
+
+        #region MAIN
         static void Main(string[] args)
         {
+            string userName;
+
             SetTheme();
 
-           // DisplayLoginRegister();
             DisplayWelcomeScreen();
-            DisplayMenuScreen();
+            userName = DisplayLoginMenuScreen();
+            DisplayMenuScreen(userName);
             DisplayClosingScreen();
         }
+        #endregion
 
         #region MAIN MENU
         /// <summary>
@@ -35,27 +40,30 @@ namespace Capstone_Project
         /// *                     Main Menu                                 *
         /// *****************************************************************
         /// </summary>
-        static void DisplayMenuScreen()
+        static void DisplayMenuScreen(string userName)
         {
             Console.CursorVisible = true;
 
-            bool quitApplication = false;
+            //
+            // Initialize variables
+            //
+            bool quitMenu = false;
             string menuChoice;
 
             do
             {
+                //
+                // Display Header
+                //
                 DisplayScreenHeader("Main Menu");
 
                 //
-                // get user menu choice
+                // Get user menu choice
                 //
-                Console.WriteLine("\tA: Room Size Evaluator");
-                Console.WriteLine("\tB: ");
-                Console.WriteLine("\tC: ");
-                Console.WriteLine("\tD: ");
-                Console.WriteLine("\tE: ");
-                Console.WriteLine("\tF: Stored Users and Passwords");
-                Console.WriteLine("\tG: ");
+                Console.WriteLine("\tA: Application Information");
+                Console.WriteLine("\tB: Home Data Menu");
+                Console.WriteLine("\tC: Returning User Data");
+                Console.WriteLine("\tD: Stored Users and Passwords");
                 Console.WriteLine("\tQ: Quit");
                 Console.WriteLine();
                 Console.WriteLine();
@@ -63,40 +71,29 @@ namespace Capstone_Project
                 menuChoice = Console.ReadLine().ToLower();
 
                 //
-                // process user menu choice
+                // Process user menu choice
                 //
                 switch (menuChoice)
                 {
                     case "a":
-                        DisplayRoomMenuScreen();
+                        DisplayApplicationInformation();
                         break;
 
                     case "b":
-                        
+                        DisplayRoomMenuScreen(userName);
                         break;
 
                     case "c":
-                        
+                        DisplayReturningUserInformation(userName);
                         break;
 
                     case "d":
-                        
-                        break;
-
-                    case "e":
-                        
-                        break;
-                    case "f":
                         DisplayCredentials();
                         break;
 
-                    case "g":
-                        
-                        break;
-
                     case "q":
-                        
-                        quitApplication = true;
+
+                        quitMenu = true;
                         break;
 
                     default:
@@ -106,79 +103,122 @@ namespace Capstone_Project
                         break;
                 }
 
-            } while (!quitApplication);
+            } while (!quitMenu);
         }
         /// <summary>
         /// *****************************************************************
-        /// *                      ROOM DATA MENU                          *
+        ///             Display Returning User Information
         /// *****************************************************************
         /// </summary>
-        static void DisplayRoomMenuScreen()
+        /// <param name="userName"></param>
+        static void DisplayReturningUserInformation(string userName)
+        {
+            //
+            // Initialize Variables
+            //
+            string dataPath = @"Data/UserHomes.txt";
+            string[] loginInfoArray;
+            
+            //
+            // Read Data from file
+            //
+            loginInfoArray = File.ReadAllLines(dataPath);
+
+            //
+            // Display Header
+            //
+            DisplayScreenHeader($"{userName}'s Home Data");
+
+            foreach (string loginInfoText in loginInfoArray)
+            {
+                if (loginInfoText.Contains(userName))
+                {
+                    Console.WriteLine($"\t{loginInfoText}");
+                }
+            }   
+
+            //
+            // Menu Prompt
+            //
+            DisplayMenuPrompt("Main Menu");
+        }
+
+        /// <summary>
+        /// *****************************************************************
+        ///         Display Application Information
+        /// *****************************************************************
+        /// </summary>
+        static void DisplayApplicationInformation()
+        {
+            DisplayScreenHeader("Application Information");
+            Console.WriteLine("Module Under Construction");
+            DisplayMenuPrompt("Main Menu");
+        }
+
+        #endregion
+
+        #region ROOM DATA MENU
+        /// <summary>
+        /// *****************************************************************
+        /// *                      HOME DATA MENU                           *
+        /// *****************************************************************
+        /// </summary>
+        static void DisplayRoomMenuScreen(string userName)
         {
             Console.CursorVisible = true;
 
+            //
+            // Initialize variables
+            //
             int numberOfRooms = 0;
             int[] roomSizes = null;
             string[] roomNames = null;
 
-            bool quitApplication = false;
+            bool quitMenu = false;
             string menuChoice;
 
             do
             {
-                DisplayScreenHeader("User Data Menu");
+                //
+                // Display Header
+                //
+                DisplayScreenHeader($"{userName} Home Data Menu");
 
                 //
-                // get user menu choice
+                // Get user menu choice
                 //
-                Console.WriteLine("\tA: Number of Rooms");
-                Console.WriteLine("\tB: Room Data");
-                Console.WriteLine("\tC: Show Data");
-                Console.WriteLine("\tD: ");
-                Console.WriteLine("\tE: ");
-                Console.WriteLine("\tF: ");
-                Console.WriteLine("\tG: ");
-                Console.WriteLine("\tQ: Quit");
-                Console.WriteLine();
-                Console.WriteLine();
+                Console.WriteLine("\tA: Instructions");
+                Console.WriteLine("\tB: Number of Rooms");
+                Console.WriteLine("\tC: Room Data");
+                Console.WriteLine("\tD: Show Data");
+                Console.WriteLine("\tQ: Quit\n\n");
                 Console.Write("\tEnter Choice: ");
                 menuChoice = Console.ReadLine().ToLower();
 
                 //
-                // process user menu choice
+                // Process user menu choice
                 //
                 switch (menuChoice)
                 {
                     case "a":
+                        DisplayInstructions();
+
+                        break;
+                    case "b":
                         numberOfRooms = DisplayGetNumberOfRoomsData();
                         break;
 
-                    case "b":
-                        DisplayGetRoomNameAndSizeData(numberOfRooms, out roomSizes, out roomNames);
-                        break;
-
                     case "c":
-                        DisplayRoomSizeNameData(roomSizes, roomNames);
+                        DisplayGetRoomNameAndSizeData(numberOfRooms, out roomSizes, out roomNames, userName);
                         break;
 
                     case "d":
-
-                        break;
-
-                    case "e":
-                        
-                        break;
-                    case "f":
-                        
-                        break;
-
-                    case "g":
-
+                        DisplayRoomSizeNameData(roomSizes, roomNames);
                         break;
 
                     case "q":
 
-                        quitApplication = true;
+                        quitMenu = true;
                         break;
 
                     default:
@@ -188,98 +228,676 @@ namespace Capstone_Project
                         break;
                 }
 
-            } while (!quitApplication);
+            } while (!quitMenu);
         }
         /// <summary>
         /// ******************************************************
-        /// 
+        ///             DISPLAY INSTRUCTIONS
+        /// ******************************************************
+        /// </summary>
+        static void DisplayInstructions()
+        {
+            //
+            // Display Header
+            //
+            DisplayScreenHeader("Instructions");
+
+            //
+            // Display Instructions
+            //
+            Console.WriteLine("\tIn this application you will:\n" +
+                "\n\t1. Enter number of rooms in your home" +
+                "\n\t2. Enter room type from list below: " +
+                "\n\t\tMaster Bedroom" +
+                "\n\t\tBedroom" +
+                "\n\t\tLiving Room" +
+                "\n\t\tHallway" +
+                "\n\t\tKitchen" +
+                "\n\t\tBathroom" +
+                "\n\t\tStudy" +
+                "\n\t\tOffice" +
+                "\n\t3. Enter room length" +
+                "\n\t4. Enter room width" +
+                "\n");
+            
+            //
+            // Menu Prompt
+            //
+            DisplayMenuPrompt("User Data Menu");
+        }
+
+        /// <summary>
+        /// ******************************************************
+        ///             DISPLAY TOTAL SQ FT DATA 
         /// ******************************************************
         /// </summary>
         /// <param name="roomsizes"></param>
         static void DisplayTotalSqFtData(int[] roomSizes)
         {
             int sum = roomSizes.Sum();
-
             Console.WriteLine($"\tThe total square footage is {sum}");
         }
         /// <summary>
         /// ******************************************************
-        /// 
+        ///             DISPLAY ROOM NAMES AND SIZE
         /// ******************************************************
         /// </summary>
         /// <param name="roomSizes"></param>
         /// <param name="roomNames"></param>
         static void DisplayRoomSizeNameData(int[] roomSizes, string[] roomNames)
         {
-
+            //
+            // Display Header
+            //
             DisplayScreenHeader("\t\tRoom Size Data");
 
-            Console.WriteLine(string.Format($"{"Room",17}    {"Square Footage",17}"));
-            Console.WriteLine();
+            //
+            // Display Info In Table
+            //
+            Console.WriteLine(string.Format($"{"Room Name",17}    {"Square Footage",17}\n"));
 
             for (int i = 0; i < roomSizes.Length; i++)
             {
                 string room = roomSizes[i].ToString("n2");
                 string roomName = roomNames[i];
-                Console.WriteLine(string.Format($"\t{roomName}{room,15}"));
+                Console.WriteLine(string.Format($"{roomName,17}{room,17}"));
             }
 
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine("\n");
+
+            //
+            // Display Total Square Footage
+            //
             DisplayTotalSqFtData(roomSizes);
+
+            //
+            // Menu Prompt
+            //
             DisplayMenuPrompt("User Data Menu");
 
         }
         /// <summary>
         /// ******************************************************
-        /// 
+        ///             GET ROOM NAMES AND SIZE DATA
         /// ******************************************************
         /// </summary>
         /// <param name="numberOfRooms"></param>
         /// <param name="sizes"></param>
         /// <param name="names"></param>
-        static void DisplayGetRoomNameAndSizeData(int numberOfRooms, out int[] sizes, out string[] names)
+        static void DisplayGetRoomNameAndSizeData(int numberOfRooms, out int[] sizes, out string[] names, string userName)
         {
+            //
+            // Initialize variables
+            //
             int[] roomSizes = new int[numberOfRooms];
             string[] roomNames = new string[numberOfRooms];
-            int length;
-            int width;
+            string roomAndSizes;
+            string strRmSize;
+            int length, width, roomSize, sum;
             string roomName;
+            string dataPath = @"Data/UserHomes.txt";
+            
+            //
+            // Start Entry in text file with userName
+            //
+            string userNameEntry = userName + ": ";
+            File.AppendAllText(dataPath, userNameEntry);
+
+            //
+            // Display Header
+            //
             DisplayScreenHeader("Get Room Size Data");
 
+            //
+            // Display Number of Rooms
+            //
+            Console.WriteLine($"\n\tNumber of Rooms: {numberOfRooms}\n");
+            
+            //
+            // Display Room Types
+            //
+            Console.WriteLine("\tTypes of Rooms:\n");
+            Console.WriteLine("\t****************************************************\n" +
+                              "\t* Master Bedroom * Bedroom * Living Room * Hallway *\n" +
+                              "\t*     * Kitchen * Bathroom * Study * Office *      *\n" +
+                              "\t****************************************************\n");
+
+            //
+            // Get information from user
+            //
             for (int i = 0; i < numberOfRooms; i++)
             {
                 Console.Write("\tEnter Room Name: ");
-                roomName = Console.ReadLine();
+                roomName = IsValidString();
+
                 length = PromptUserForInt($"Enter length of {roomName}: ");
                 width = PromptUserForInt($"Enter width of {roomName}: ");
-                roomSizes[i] = (length * width);
+                
+                roomSize = length * width;
+                
+                strRmSize = roomSize.ToString();
+                
+                //
+                // Send information to arrays
+                //
+                roomSizes[i] = roomSize;
                 roomNames[i] = roomName;
+
+                // ***********************
+                // Write user info to file
+                // ***********************
+
+                //
+                // If not the last item
+                //
+                if (i < numberOfRooms - 1)
+                {
+                    roomAndSizes = roomName + ": " + strRmSize + ", ";
+                    File.AppendAllText(dataPath, roomAndSizes);
+                }
+
+                //
+                // If last room
+                //
+                if (i == numberOfRooms - 1)
+                {
+                    sum = roomSizes.Sum();
+                    roomAndSizes = roomName + ": " + strRmSize + ", Total Square Footage: " + sum + "\n";
+                    File.AppendAllText(dataPath, roomAndSizes);
+                }
             }
-            DisplayMenuPrompt("User Data Menu");
+
             sizes = roomSizes;
             names = roomNames;
-        }
 
+            //
+            // Menu Prompt
+            //
+            DisplayMenuPrompt("User Data Menu");
+
+        }
         /// <summary>
         /// ******************************************************
-        /// 
+        ///             GET NUMBER OF ROOMS
         /// ******************************************************
         /// </summary>
         /// <returns></returns>
         static int DisplayGetNumberOfRoomsData()
         {
-            DisplayScreenHeader("Get Number of Rooms");
+            //
+            // Initialize variables
+            //
             int ret;
+            
+            //
+            // Display Header
+            //
+            DisplayScreenHeader("Get Number of Rooms");
+            
+            //
+            // Prompt user for number of Rooms
+            //
             ret = PromptUserForInt("Enter number of Rooms: ");
+            
+            //
+            // Echo input back to user
+            //
+            Console.WriteLine($"\n\tNumber of Rooms: {ret}");
 
+            //
+            // Menu Prompt
+            //
             DisplayMenuPrompt("User Data Menu");
+            
+            //
+            // Return number of rooms
+            //
             return ret;            
         }
 
         #endregion
 
-        #region Theme
+        #region LOGIN MENU
+
+        /// <summary>
+        /// *****************************************************************
+        /// *                      LOGIN MENU                               *
+        /// *****************************************************************
+        /// </summary>
+        /// <returns></returns>
+        static string DisplayLoginMenuScreen()
+        {
+            Console.CursorVisible = true;
+
+            //
+            // Initialize Variables
+            //
+            bool quitMenu = false;
+            string menuChoice;
+            string userName = "";
+            
+            do
+            {
+                DisplayScreenHeader("Login Menu");
+
+                //
+                // get user menu choice
+                //
+                Console.WriteLine("\tL: Log in");
+                Console.WriteLine("\tA: Register");
+                Console.WriteLine("\tB: Recover Password");
+                Console.Write("\n\n\tEnter Choice: ");
+                menuChoice = Console.ReadLine().ToLower();
+
+                //
+                // process user menu choice
+                //
+                switch (menuChoice)
+                {
+                    case "l":
+                        userName = DisplayLogin();
+                        quitMenu = true;
+                        break;
+
+                    case "a":
+                        DisplayRegisterUser();
+                        break;
+
+                    case "b":
+                        RecoverPassword();
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("\tPlease enter a letter for the menu choice.");
+                        DisplayContinuePrompt();
+                        break;
+                }
+                
+            } while (!quitMenu);
+
+            //
+            // Return username for use in persistence
+            //
+            return userName;
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             REGISTER USER            
+        /// ******************************************************
+        /// </summary>
+        static void DisplayRegisterUser()
+        {
+            //
+            // Initialize variables
+            //
+            string userName;
+            string password;
+            string encryptedPassword;
+            int key;
+
+            //
+            // Display Header
+            //
+            DisplayScreenHeader("Register");
+
+            //
+            // Get username
+            //
+            userName = GetUserName();
+
+            //
+            // Get Password
+            //
+            Console.Write("\tEnter your password: ");
+            password = Console.ReadLine();
+
+            //
+            // Get Cipher Key
+            //
+            key = ValidIntegerAndRange("\tEnter a cipher value between 1 and 26: ", 1, 26);
+            encryptedPassword = Encrypt(password, key);
+
+            //
+            // Write login Data to file
+            //
+            WriteLoginInfoData(userName, encryptedPassword);
+            
+            //
+            // Write User Name to file
+            //
+            WriteUserNameInfoData(userName);
+
+            //
+            // Echo back login credentials
+            //
+            Console.WriteLine();
+            Console.WriteLine("\tYour login credentials are as followed: ");
+            Console.WriteLine($"\tUser name: {userName}");
+            Console.WriteLine($"\tPassword: {password}");
+            Console.WriteLine($"\tYour key: {key}");
+            Console.WriteLine($"\tEncrypted Password: {encryptedPassword}");
+            Console.WriteLine("\tBe sure to remember your key, you won't be able to recover or reset it!");
+
+            //
+            // Menu Prompt
+            //
+            DisplayMenuPrompt("Login Menu");
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             WRITE LOGIN INFO DATA
+        /// ******************************************************
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        static void WriteLoginInfoData(string userName, string password)
+        {
+            string dataPath = @"Data/Logins.txt";
+            string loginInfoText = userName + "," + password + "\n";
+
+            File.AppendAllText(dataPath, loginInfoText);
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             DISPLAY LOGIN
+        /// ******************************************************
+        /// </summary>
+        static string DisplayLogin()
+        {
+            //
+            // Initialize Variables
+            //
+            string userName;
+            string password;
+            string encryptedPassword;
+            int key;
+            bool validLogin;
+
+
+            do
+            {
+                //
+                // Display Header
+                //
+                DisplayScreenHeader("Login");
+
+                Console.WriteLine();
+
+                //
+                // Prompt for username
+                //
+                Console.Write("\tEnter your username: ");
+                userName = Console.ReadLine();
+
+                //
+                // Prompt for password
+                //
+                Console.Write("\tEnter password: ");
+                password = Console.ReadLine();
+
+                //
+                // Prompt for key
+                //
+                Console.Write("\tEnter Key: ");
+                key = IsValidInt();
+
+                //
+                // Encrypt Password
+                //
+                encryptedPassword = Encrypt(password, key);
+                
+                //
+                // Validate login info
+                //
+                validLogin = isValidLoginInfo(userName, encryptedPassword);
+
+
+                Console.WriteLine();
+                if (validLogin)
+                {
+                    Console.WriteLine($"\tYou are now logged in {userName}");
+                    DisplayContinuePrompt();
+                }
+                else
+                {
+                    DisplayContinuePrompt();
+                }
+                
+            } while (!validLogin);
+
+            //
+            // Return userName for later use
+            //
+            return userName;
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             VALIDATE LOGIN CREDENTIALS
+        /// ******************************************************
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        static bool isValidLoginInfo(string userName, string password)
+        {
+            List<(string userName, string password)> registeredUserLoginInfo = new List<(string userName, string password)>();
+            bool validUser = false;
+
+            registeredUserLoginInfo = ReadLoginInfoData();
+
+            foreach ((string userName, string password) userLoginInfo in registeredUserLoginInfo)
+            {
+                if ((userLoginInfo.userName == userName) && (userLoginInfo.password == password))
+                {
+                    validUser = true;
+                    break;
+                }
+            }
+            if (!validUser)
+            {
+                Console.WriteLine("\tWrong login credentials");
+            }
+            return validUser;
+        }
+
+        /// <summary>
+        /// ******************************************************
+        ///             READ LOGIN INFO DATA
+        /// ******************************************************
+        /// </summary>
+        /// <returns></returns>
+        static List<(string userName, string password)> ReadLoginInfoData()
+        {
+            //
+            // Initialize Variables
+            //
+            string dataPath = @"Data/Logins.txt";
+            string[] loginInfoArray;
+            (string userName, string password) loginInfoTuple;
+            List<(string userName, string password)> registeredUserLoginInfo = new List<(string userName, string password)>();
+
+            //
+            // Read Text File
+            //
+            loginInfoArray = File.ReadAllLines(dataPath);
+
+            foreach (string loginInfoText in loginInfoArray)
+            {
+                loginInfoArray = loginInfoText.Split(',');
+
+                loginInfoTuple.userName = loginInfoArray[0];
+                loginInfoTuple.password = loginInfoArray[1];
+
+                registeredUserLoginInfo.Add(loginInfoTuple);
+            }
+
+            return registeredUserLoginInfo;
+
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             WRITE USER NAMES TO FILE
+        /// ******************************************************
+        /// </summary>
+        /// <param name="userName"></param>
+        static void WriteUserNameInfoData(string userName)
+        {
+            string dataPath = @"Data/UserNames.txt";
+            string userNames = userName + "\n";
+
+            File.AppendAllText(dataPath, userNames);
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             GET USER NAME AND SEE IF IT'S TAKEN
+        /// ******************************************************
+        /// </summary>
+        /// <returns></returns>
+        static string GetUserName()
+        {
+            bool validUserName;
+            string userName;
+            do
+            {
+                Console.Write("\tEnter user name: ");
+                userName = Console.ReadLine();
+                validUserName = isValidUserName(userName);
+
+            } while (validUserName);
+
+            return userName;
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             CHECK IF USERNAME EXISTS ALREADY
+        /// ******************************************************
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        static bool isValidUserName(string userName)
+        {
+            string dataPath = @"Data/UserNames.txt";
+            bool validUserName = File.ReadLines(dataPath).Contains(userName);
+            if (validUserName)
+            {
+                Console.WriteLine($"\tUser name already taken.");
+            }
+            return validUserName;
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             DISPLAY USERNAMES AND ENCRYPTED PASSWORDS
+        /// ******************************************************
+        /// </summary>
+        static void TableofUserNames()
+        {
+            //
+            // Initialize variables
+            //
+            string dataPath = @"Data\Logins.txt";
+            string[] loginInfoArray;
+            (string userName, string password) loginInfoTuple;
+
+            //
+            // Read File
+            //
+            loginInfoArray = File.ReadAllLines(dataPath);
+
+            //
+            // Display Data in a Table
+            //
+            Console.WriteLine(string.Format($"\t{"User Name",10} \t {"Password",20}"));
+            Console.WriteLine();
+            foreach (string loginInfoText in loginInfoArray)
+            {
+                loginInfoArray = loginInfoText.Split(',');
+
+                Console.WriteLine(string.Format($"\t{ loginInfoTuple.userName = loginInfoArray[0],10} \t {loginInfoTuple.password = loginInfoArray[1],20}"));
+            }
+
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             RECOVER PASSWORD
+        /// ******************************************************
+        /// </summary>
+        static void RecoverPassword()
+        {
+            //
+            // Initialize variables
+            //
+            int key;
+            string userName;
+            string encryptedPassword;
+            string password;
+            string dataPath = @"Data\Logins.txt";
+            string[] loginInfoArray;
+            (string userName, string password) loginInfoTuple;
+
+            //
+            // Display Header
+            //
+            DisplayScreenHeader("Password Recovery");
+
+            //
+            // Prompt user for username
+            //
+            Console.Write("\tEnter username: ");
+            userName = Console.ReadLine();
+
+            //
+            // Prompt user for key
+            //
+            Console.Write("\tEnter Key: ");
+            key = IsValidInt();
+
+            //
+            // Read File to retriave password
+            //
+            loginInfoArray = File.ReadAllLines(dataPath);
+            foreach (string loginInfoText in loginInfoArray)
+            {
+                if (loginInfoText.Contains(userName))
+                {
+                    loginInfoArray = loginInfoText.Split(',');
+
+                    loginInfoTuple.userName = loginInfoArray[0];
+                    loginInfoTuple.password = loginInfoArray[1];
+                    encryptedPassword = loginInfoArray[1];
+
+                    //
+                    // Echo back encrypted password
+                    //
+                    Console.WriteLine($"\tEncrypted Password: {encryptedPassword}");
+                    
+                    //
+                    // Echo back decrypted Password
+                    //
+                    password = Decrypt(encryptedPassword, key);
+                    Console.WriteLine($"\tPassword: {password}");
+                }
+            }
+
+            //
+            // Menu prompt
+            //
+            DisplayMenuPrompt("Login Menu");
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             Display Credentials
+        /// ******************************************************
+        /// </summary>
+        static void DisplayCredentials()
+        {
+            DisplayScreenHeader("User Names and Passwords");
+            TableofUserNames();
+            DisplayMenuPrompt("Main Menu");
+        }
+        #endregion
+
+        #region THEME
         /// <summary>
         /// setup the console theme
         /// </summary>
@@ -300,20 +918,29 @@ namespace Capstone_Project
         static void DisplayWelcomeScreen()
         {
             Console.CursorVisible = false;
-            string welcome = "Square Footage Evaluator";
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine(String.Format("{0,28}", welcome));
+            Console.WriteLine("\t\t\tThe Essential Home Application");
             Console.WriteLine();
             Console.WriteLine(@"
-                        | 
-    ____________    __ -+-  ____________ 
-    \_____     /   /_ \ |   \     _____/
-     \_____    \____/  \____/    _____/
-      \_____   FINCH CONTROL    _____/
-         \___________  ___________/
-                   /____\");
+                                       /\
+                                  /\  //\\
+                           /\    //\\///\\\        /\
+                          //\\  ///\////\\\\  /\  //\\
+             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \
+            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \
+           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       *
+          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \     /|\
+         / ^ ^  ^ \ ^  _\___________________|  |_____^ ^  \   /||o\
+        / ^^  ^ ^ ^\  /______________________________\ ^ ^ \ /|o|||\
+       /  ^  ^^ ^ ^  /________________________________\  ^  /|||||o|\
+      /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\
+     / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |
+    / ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo
+    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
 
+            Console.WriteLine();
+            Console.WriteLine();
             DisplayContinuePrompt();
         }
 
@@ -440,34 +1067,6 @@ namespace Capstone_Project
         }
         /// <summary>
         /// ******************************************************
-        ///         VALIDATES DOUBLE FALLS WITHIN A RANGE     
-        /// ******************************************************
-        /// 
-        /// </summary>
-        /// <param name="thresholdValue"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        static double isValidThresholdAndRange(double thresholdValue, int min, int max)
-        {
-            bool isValidThreshold = false;
-            while (!isValidThreshold)
-            {
-                if (thresholdValue > max || thresholdValue < min)
-                {
-                    Console.WriteLine();
-                    Console.Write($"\tPlease enter a threshold value between {min} and {max}: ");
-                    thresholdValue = IsValidDouble();
-                }
-                else
-                {
-                    isValidThreshold = true;
-                }
-            }
-            return thresholdValue;
-        }
-        /// <summary>
-        /// ******************************************************
         ///         VALIDATES INTEGER FALLS WITHIN A RANGE     
         /// ******************************************************
         /// </summary>
@@ -475,7 +1074,6 @@ namespace Capstone_Project
         /// <param name="max"></param>
         /// <param name="min"></param>
         /// <returns></returns>
-
         static int isValidThresholdAndRange(int thresholdValue, int min, int max)
         {
             bool isValidThreshold = false;
@@ -494,267 +1092,60 @@ namespace Capstone_Project
             }
             return thresholdValue;
         }
-        #endregion
-
-        #region System I/0
-
-
         /// <summary>
         /// ******************************************************
-        ///             LOGIN OR REGISTER MENU
+        ///         VALIDATES USER STRING INPUT    
         /// ******************************************************
         /// </summary>
-        static void DisplayLoginRegister()
+        /// <returns></returns>
+        static string IsValidString()
         {
-            DisplayScreenHeader("Login/Register");
-
-            Console.Write("\tAre you a registered user?  [Yes/No] ");
-            string userResponse = Console.ReadLine().ToLower();
-            if (userResponse == "yes" || userResponse == "y")
-            {
-                DisplayLogin();
-            }
-            else
-            {
-                DisplayRegisterUser();
-                DisplayLogin();
-            }
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             REGISTER USER            
-        /// ******************************************************
-        /// </summary>
-        static void DisplayRegisterUser()
-        {
-            string userName;
-            string password;
-            string encryptedPassword;
-            int key;
-
-            DisplayScreenHeader("Register");
-
-            userName = GetUserName();
-            Console.Write("\tEnter your password: ");
-            password = Console.ReadLine();
-            key = ValidIntegerAndRange("\tEnter a cipher value between 1 and 26: ", 1, 26);
-            encryptedPassword = Encrypt(password, key);
-
-
-            WriteLoginInfoData(userName, encryptedPassword);
-            WriteUserNameInfoData(userName);
-
-            Console.WriteLine();
-            Console.WriteLine("\tYour login credentials are as followed: ");
-            Console.WriteLine($"\tUser name: {userName}");
-            Console.WriteLine($"\tPassword: {password}");
-            Console.WriteLine($"\tYour key: {key}");
-            Console.WriteLine($"\tEncrypted Password: {encryptedPassword}");
-
-            DisplayContinuePrompt();
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             WRITE LOGIN INFO DATA
-        /// ******************************************************
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        static void WriteLoginInfoData(string userName, string password)
-        {
-            string dataPath = @"Data/Logins.txt";
-            string loginInfoText = userName + "," + password + "\n";
-
-            File.AppendAllText(dataPath, loginInfoText);
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             DISPLAY LOGIN
-        /// ******************************************************
-        /// </summary>
-        static void DisplayLogin()
-        {
-            string userName;
-            string password;
-            string encryptedPassword;
-            int key;
-            bool validLogin;
-
-
+            bool validString = false;
+            string roomName;
             do
             {
-                DisplayScreenHeader("Login");
-
-                Console.WriteLine();
-                Console.Write("\tEnter your user name: ");
-                userName = Console.ReadLine();
-                Console.Write("\tEnter password: ");
-                password = Console.ReadLine();
-                Console.Write("\tEnter Key: ");
-                key = IsValidInt();
-                encryptedPassword = Encrypt(password, key);
-
-                validLogin = isValidLoginInfo(userName, encryptedPassword);
-
-                Console.WriteLine();
-                if (validLogin)
+                roomName = Console.ReadLine().ToLower();
+                switch (roomName)
                 {
-                    Console.WriteLine($"\tYou are now logged in {userName}");
-                    DisplayContinuePrompt();
+                    case "master bedroom":
+                        roomName = "Master Bedroom";
+                        validString = true;
+                        break;
+                    case "bedroom":
+                        roomName = "Bedroom";
+                        validString = true;
+                        break;
+                    case "living room":
+                        roomName = "Living Room";
+                        validString = true;
+                        break;
+                    case "kitchen":
+                        roomName = "Kitchen";
+                        validString = true;
+                        break;
+                    case "hallway":
+                        roomName = "Hallway";
+                        validString = true;
+                        break;
+                    case "bathroom":
+                        roomName = "Bathroom";
+                        validString = true;
+                        break;
+                    case "study":
+                        roomName = "Study";
+                        validString = true;
+                        break;
+                    case "office":
+                        roomName = "Office";
+                        validString = true;
+                        break;
+                    default:
+                        Console.Write("\tInvalid input. Enter valid room name: ");
+                        break;
                 }
-                else
-                {
-                    DisplayContinuePrompt();
-                }
 
-            } while (!validLogin);
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             VALIDATE LOGIN CREDENTIALS
-        /// ******************************************************
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        static bool isValidLoginInfo(string userName, string password)
-        {
-            List<(string userName, string password)> registeredUserLoginInfo = new List<(string userName, string password)>();
-            bool validUser = false;
-
-            registeredUserLoginInfo = ReadLoginInfoData();
-
-            foreach ((string userName, string password) userLoginInfo in registeredUserLoginInfo)
-            {
-                if ((userLoginInfo.userName == userName) && (userLoginInfo.password == password))
-                {
-                    validUser = true;
-                    break;
-                }
-            }
-            if (!validUser)
-            {
-                Console.WriteLine("\tWrong login credentials");
-            }
-            return validUser;
-        }
-
-        /// <summary>
-        /// ******************************************************
-        ///             READ LOGIN INFO DATA
-        /// ******************************************************
-        /// </summary>
-        /// <returns></returns>
-        static List<(string userName, string password)> ReadLoginInfoData()
-        {
-            string dataPath = @"Data/Logins.txt";
-
-
-            string[] loginInfoArray;
-            (string userName, string password) loginInfoTuple;
-
-            List<(string userName, string password)> registeredUserLoginInfo = new List<(string userName, string password)>();
-
-            loginInfoArray = File.ReadAllLines(dataPath);
-
-            foreach (string loginInfoText in loginInfoArray)
-            {
-                loginInfoArray = loginInfoText.Split(',');
-
-                loginInfoTuple.userName = loginInfoArray[0];
-                loginInfoTuple.password = loginInfoArray[1];
-
-                registeredUserLoginInfo.Add(loginInfoTuple);
-            }
-
-            return registeredUserLoginInfo;
-
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             WRITE USER NAMES TO FILE
-        /// ******************************************************
-        /// </summary>
-        /// <param name="userName"></param>
-        static void WriteUserNameInfoData(string userName)
-        {
-            string dataPath = @"Data/UserNames.txt";
-            string userNames = userName + "\n";
-
-            File.AppendAllText(dataPath, userNames);
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             GET USER NAME AND SEE IF IT'S TAKEN
-        /// ******************************************************
-        /// </summary>
-        /// <returns></returns>
-        static string GetUserName()
-        {
-            bool validUserName;
-            string userName;
-            do
-            {
-                Console.Write("\tEnter user name: ");
-                userName = Console.ReadLine();
-                validUserName = isValidUserName(userName);
-
-            } while (validUserName);
-
-            return userName;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             CHECK IF USERNAME EXISTS ALREADY
-        /// ******************************************************
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <returns></returns>
-        static bool isValidUserName(string userName)
-        {
-            string dataPath = @"Data/UserNames.txt";
-            bool validUserName = File.ReadLines(dataPath).Contains(userName);
-            if (validUserName)
-            {
-                Console.WriteLine($"\tUser name already taken.");
-            }
-            return validUserName;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             DISPLAY USERNAMES AND ENCRYPTED PASSWORDS
-        /// ******************************************************
-        /// </summary>
-        static void TableofUserNames()
-        {
-            string dataPath = @"Data\Logins.txt";
-
-            string[] loginInfoArray;
-            (string userName, string password) loginInfoTuple;
-
-            loginInfoArray = File.ReadAllLines(dataPath);
-
-            Console.WriteLine(string.Format($"\t{"User Name",10} \t {"Password",20}"));
-            Console.WriteLine();
-            foreach (string loginInfoText in loginInfoArray)
-            {
-                loginInfoArray = loginInfoText.Split(',');
-
-                Console.WriteLine(string.Format($"\t{ loginInfoTuple.userName = loginInfoArray[0],10} \t {loginInfoTuple.password = loginInfoArray[1],20}"));
-
-            }
-
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             Display Credentials
-        /// ******************************************************
-        /// </summary>
-        static void DisplayCredentials()
-        {
-            DisplayScreenHeader("User Names and Passwords");
-            TableofUserNames();
-            DisplayMenuPrompt("Main Menu");
+            } while (!validString);
+            return roomName;
         }
         #endregion
 
@@ -767,7 +1158,7 @@ namespace Capstone_Project
         /// <param name="ch"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static char CaesarCipher(char ch, int key)
+        static char CaesarCipher(char ch, int key)
         {
             if (!char.IsLetter(ch))
             {
@@ -789,7 +1180,7 @@ namespace Capstone_Project
         /// <param name="key"></param>
         /// <returns></returns>
 
-        public static string Encrypt(string input, int key)
+        static string Encrypt(string input, int key)
         {
             string output = string.Empty;
 
@@ -806,7 +1197,7 @@ namespace Capstone_Project
         /// <param name="input"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string Decrypt(string input, int key)
+        static string Decrypt(string input, int key)
         {
             return Encrypt(input, 26 - key);
         }
