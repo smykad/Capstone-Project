@@ -20,150 +20,151 @@ namespace Capstone_Project
     class Program
     {
 
-        #region MAIN
         static void Main(string[] args)
         {
             string userName;
 
-            SetTheme();
+            Theme.SetTheme();
 
-            DisplayWelcomeScreen();
-            userName = DisplayLoginMenuScreen();
-            DisplayMenuScreen(userName);
-            DisplayClosingScreen();
+            Theme.DisplayWelcomeScreen();
+            userName = Login.DisplayLoginMenuScreen();
+            Menu.DisplayMenuScreen(userName);
+            Theme.DisplayClosingScreen();
         }
-        #endregion
-
-        #region MAIN MENU
-        /// <summary>
-        /// *****************************************************************
-        /// *                     Main Menu                                 *
-        /// *****************************************************************
-        /// </summary>
-        static void DisplayMenuScreen(string userName)
+ 
+    class Menu
         {
-            Console.CursorVisible = true;
-
-            //
-            // Initialize variables
-            //
-            bool quitMenu = false;
-            string menuChoice;
-
-            do
+            /// <summary>
+            /// *****************************************************************
+            /// *                     Main Menu                                 *
+            /// *****************************************************************
+            /// </summary>
+            public static void DisplayMenuScreen(string userName)
             {
+                Console.CursorVisible = true;
+
+                //
+                // Initialize variables
+                //
+                bool quitMenu = false;
+                string menuChoice;
+
+                do
+                {
+                    //
+                    // Display Header
+                    //
+                    Theme.DisplayScreenHeader("Main Menu");
+
+                    //
+                    // Get user menu choice
+                    //
+                    Console.WriteLine("\tA: Application Information");
+                    Console.WriteLine("\tB: Home Data Menu");
+                    Console.WriteLine("\tC: Returning User Data");
+                    Console.WriteLine("\tD: Stored Users and Passwords");
+                    Console.WriteLine("\tQ: Quit");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.Write("\tEnter Choice: ");
+                    menuChoice = Console.ReadLine().ToLower();
+
+                    //
+                    // Process user menu choice
+                    //
+                    switch (menuChoice)
+                    {
+                        case "a":
+                            DisplayApplicationInformation();
+                            break;
+
+                        case "b":
+                            Home.DisplayRoomMenuScreen(userName);
+                            break;
+
+                        case "c":
+                            DisplayReturningUserInformation(userName);
+                            break;
+
+                        case "d":
+                            Login.DisplayCredentials();
+                            break;
+
+                        case "q":
+
+                            quitMenu = true;
+                            break;
+
+                        default:
+                            Console.WriteLine();
+                            Console.WriteLine("\tPlease enter a letter for the menu choice.");
+                            Theme.DisplayContinuePrompt();
+                            break;
+                    }
+
+                } while (!quitMenu);
+            }
+            /// <summary>
+            /// *****************************************************************
+            ///             Display Returning User Information
+            /// *****************************************************************
+            /// </summary>
+            /// <param name="userName"></param>
+            static void DisplayReturningUserInformation(string userName)
+            {
+                //
+                // Initialize Variables
+                //
+                string dataPath = @"Data/UserHomes.txt";
+                string[] loginInfoArray;
+
+                //
+                // Read Data from file
+                //
+                loginInfoArray = File.ReadAllLines(dataPath);
+
                 //
                 // Display Header
                 //
-                DisplayScreenHeader("Main Menu");
+                Theme.DisplayScreenHeader($"{userName}'s Home Data");
 
-                //
-                // Get user menu choice
-                //
-                Console.WriteLine("\tA: Application Information");
-                Console.WriteLine("\tB: Home Data Menu");
-                Console.WriteLine("\tC: Returning User Data");
-                Console.WriteLine("\tD: Stored Users and Passwords");
-                Console.WriteLine("\tQ: Quit");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.Write("\tEnter Choice: ");
-                menuChoice = Console.ReadLine().ToLower();
-
-                //
-                // Process user menu choice
-                //
-                switch (menuChoice)
+                foreach (string loginInfoText in loginInfoArray)
                 {
-                    case "a":
-                        DisplayApplicationInformation();
-                        break;
-
-                    case "b":
-                        DisplayRoomMenuScreen(userName);
-                        break;
-
-                    case "c":
-                        DisplayReturningUserInformation(userName);
-                        break;
-
-                    case "d":
-                        DisplayCredentials();
-                        break;
-
-                    case "q":
-
-                        quitMenu = true;
-                        break;
-
-                    default:
-                        Console.WriteLine();
-                        Console.WriteLine("\tPlease enter a letter for the menu choice.");
-                        DisplayContinuePrompt();
-                        break;
+                    if (loginInfoText.Contains(userName))
+                    {
+                        Console.WriteLine($"\t{loginInfoText}");
+                    }
                 }
 
-            } while (!quitMenu);
-        }
-        /// <summary>
-        /// *****************************************************************
-        ///             Display Returning User Information
-        /// *****************************************************************
-        /// </summary>
-        /// <param name="userName"></param>
-        static void DisplayReturningUserInformation(string userName)
-        {
-            //
-            // Initialize Variables
-            //
-            string dataPath = @"Data/UserHomes.txt";
-            string[] loginInfoArray;
-            
-            //
-            // Read Data from file
-            //
-            loginInfoArray = File.ReadAllLines(dataPath);
+                //
+                // Menu Prompt
+                //
+                Theme.DisplayMenuPrompt("Main Menu");
+            }
 
-            //
-            // Display Header
-            //
-            DisplayScreenHeader($"{userName}'s Home Data");
-
-            foreach (string loginInfoText in loginInfoArray)
+            /// <summary>
+            /// *****************************************************************
+            ///         Display Application Information
+            /// *****************************************************************
+            /// </summary>
+            static void DisplayApplicationInformation()
             {
-                if (loginInfoText.Contains(userName))
-                {
-                    Console.WriteLine($"\t{loginInfoText}");
-                }
-            }   
+                Theme.DisplayScreenHeader("Application Information");
+                Console.WriteLine("Module Under Construction");
+                Theme.DisplayMenuPrompt("Main Menu");
+            }
 
-            //
-            // Menu Prompt
-            //
-            DisplayMenuPrompt("Main Menu");
         }
-
-        /// <summary>
-        /// *****************************************************************
-        ///         Display Application Information
-        /// *****************************************************************
-        /// </summary>
-        static void DisplayApplicationInformation()
-        {
-            DisplayScreenHeader("Application Information");
-            Console.WriteLine("Module Under Construction");
-            DisplayMenuPrompt("Main Menu");
-        }
-
-        #endregion
-
+    }
+    class Home
+    {
         #region ROOM DATA MENU
         /// <summary>
         /// *****************************************************************
         /// *                      HOME DATA MENU                           *
         /// *****************************************************************
         /// </summary>
-        static void DisplayRoomMenuScreen(string userName)
+        public static void DisplayRoomMenuScreen(string userName)
         {
             Console.CursorVisible = true;
 
@@ -182,7 +183,7 @@ namespace Capstone_Project
                 //
                 // Display Header
                 //
-                DisplayScreenHeader($"{userName} Home Data Menu");
+                Theme.DisplayScreenHeader($"{userName} Home Data Menu");
 
                 //
                 // Get user menu choice
@@ -224,7 +225,7 @@ namespace Capstone_Project
                     default:
                         Console.WriteLine();
                         Console.WriteLine("\tPlease enter a letter for the menu choice.");
-                        DisplayContinuePrompt();
+                        Theme.DisplayContinuePrompt();
                         break;
                 }
 
@@ -240,7 +241,7 @@ namespace Capstone_Project
             //
             // Display Header
             //
-            DisplayScreenHeader("Instructions");
+            Theme.DisplayScreenHeader("Instructions");
 
             //
             // Display Instructions
@@ -259,11 +260,11 @@ namespace Capstone_Project
                 "\n\t3. Enter room length" +
                 "\n\t4. Enter room width" +
                 "\n");
-            
+
             //
             // Menu Prompt
             //
-            DisplayMenuPrompt("User Data Menu");
+            Theme.DisplayMenuPrompt("User Data Menu");
         }
 
         /// <summary>
@@ -289,7 +290,7 @@ namespace Capstone_Project
             //
             // Display Header
             //
-            DisplayScreenHeader("\t\tRoom Size Data");
+            Theme.DisplayScreenHeader("\t\tRoom Size Data");
 
             //
             // Display Info In Table
@@ -313,7 +314,7 @@ namespace Capstone_Project
             //
             // Menu Prompt
             //
-            DisplayMenuPrompt("User Data Menu");
+            Theme.DisplayMenuPrompt("User Data Menu");
 
         }
         /// <summary>
@@ -336,7 +337,7 @@ namespace Capstone_Project
             int length, width, roomSize, sum;
             string roomName;
             string dataPath = @"Data/UserHomes.txt";
-            
+
             //
             // Start Entry in text file with userName
             //
@@ -346,13 +347,13 @@ namespace Capstone_Project
             //
             // Display Header
             //
-            DisplayScreenHeader("Get Room Size Data");
+            Theme.DisplayScreenHeader("Get Room Size Data");
 
             //
             // Display Number of Rooms
             //
             Console.WriteLine($"\n\tNumber of Rooms: {numberOfRooms}\n");
-            
+
             //
             // Display Room Types
             //
@@ -368,15 +369,15 @@ namespace Capstone_Project
             for (int i = 0; i < numberOfRooms; i++)
             {
                 Console.Write("\tEnter Room Name: ");
-                roomName = IsValidString();
+                roomName = Validate.ReadString();
 
-                length = PromptUserForInt($"Enter length of {roomName}: ");
-                width = PromptUserForInt($"Enter width of {roomName}: ");
-                
+                length = Validate.ReadInteger($"Enter length of {roomName}: ");
+                width = Validate.ReadInteger($"Enter width of {roomName}: ");
+
                 roomSize = length * width;
-                
+
                 strRmSize = roomSize.ToString();
-                
+
                 //
                 // Send information to arrays
                 //
@@ -413,7 +414,7 @@ namespace Capstone_Project
             //
             // Menu Prompt
             //
-            DisplayMenuPrompt("User Data Menu");
+            Theme.DisplayMenuPrompt("User Data Menu");
 
         }
         /// <summary>
@@ -428,17 +429,17 @@ namespace Capstone_Project
             // Initialize variables
             //
             int ret;
-            
+
             //
             // Display Header
             //
-            DisplayScreenHeader("Get Number of Rooms");
-            
+            Theme.DisplayScreenHeader("Get Number of Rooms");
+
             //
             // Prompt user for number of Rooms
             //
-            ret = PromptUserForInt("Enter number of Rooms: ");
-            
+            ret = Validate.ReadInteger("Enter number of Rooms: ");
+
             //
             // Echo input back to user
             //
@@ -447,25 +448,26 @@ namespace Capstone_Project
             //
             // Menu Prompt
             //
-            DisplayMenuPrompt("User Data Menu");
-            
+            Theme.DisplayMenuPrompt("User Data Menu");
+
             //
             // Return number of rooms
             //
-            return ret;            
+            return ret;
         }
 
         #endregion
-
-        #region LOGIN MENU
-
+    }
+    class Login
+    {
+        
         /// <summary>
         /// *****************************************************************
         /// *                      LOGIN MENU                               *
         /// *****************************************************************
         /// </summary>
         /// <returns></returns>
-        static string DisplayLoginMenuScreen()
+        public static string DisplayLoginMenuScreen()
         {
             Console.CursorVisible = true;
 
@@ -475,10 +477,10 @@ namespace Capstone_Project
             bool quitMenu = false;
             string menuChoice;
             string userName = "";
-            
+
             do
             {
-                DisplayScreenHeader("Login Menu");
+                Theme.DisplayScreenHeader("Login Menu");
 
                 //
                 // get user menu choice
@@ -510,10 +512,10 @@ namespace Capstone_Project
                     default:
                         Console.WriteLine();
                         Console.WriteLine("\tPlease enter a letter for the menu choice.");
-                        DisplayContinuePrompt();
+                        Theme.DisplayContinuePrompt();
                         break;
                 }
-                
+
             } while (!quitMenu);
 
             //
@@ -539,7 +541,7 @@ namespace Capstone_Project
             //
             // Display Header
             //
-            DisplayScreenHeader("Register");
+            Theme.DisplayScreenHeader("Register");
 
             //
             // Get username
@@ -555,14 +557,14 @@ namespace Capstone_Project
             //
             // Get Cipher Key
             //
-            key = ValidIntegerAndRange("\tEnter a cipher value between 1 and 26: ", 1, 26);
-            encryptedPassword = Encrypt(password, key);
+            key = Validate.ReadInteger("Enter a cipher value between 1 and 26: ", 1, 26);
+            encryptedPassword = Cipher.Encrypt(password, key);
 
             //
             // Write login Data to file
             //
             WriteLoginInfoData(userName, encryptedPassword);
-            
+
             //
             // Write User Name to file
             //
@@ -582,7 +584,7 @@ namespace Capstone_Project
             //
             // Menu Prompt
             //
-            DisplayMenuPrompt("Login Menu");
+            Theme.DisplayMenuPrompt("Login Menu");
         }
         /// <summary>
         /// ******************************************************
@@ -620,7 +622,7 @@ namespace Capstone_Project
                 //
                 // Display Header
                 //
-                DisplayScreenHeader("Login");
+                Theme.DisplayScreenHeader("Login");
 
                 Console.WriteLine();
 
@@ -638,15 +640,14 @@ namespace Capstone_Project
 
                 //
                 // Prompt for key
-                //
-                Console.Write("\tEnter Key: ");
-                key = IsValidInt();
+                //                
+                key = Validate.ReadInteger("Enter Key: ");
 
                 //
                 // Encrypt Password
                 //
-                encryptedPassword = Encrypt(password, key);
-                
+                encryptedPassword = Cipher.Encrypt(password, key);
+
                 //
                 // Validate login info
                 //
@@ -657,13 +658,13 @@ namespace Capstone_Project
                 if (validLogin)
                 {
                     Console.WriteLine($"\tYou are now logged in {userName}");
-                    DisplayContinuePrompt();
+                    Theme.DisplayContinuePrompt();
                 }
                 else
                 {
-                    DisplayContinuePrompt();
+                    Theme.DisplayContinuePrompt();
                 }
-                
+
             } while (!validLogin);
 
             //
@@ -838,7 +839,7 @@ namespace Capstone_Project
             //
             // Display Header
             //
-            DisplayScreenHeader("Password Recovery");
+            Theme.DisplayScreenHeader("Password Recovery");
 
             //
             // Prompt user for username
@@ -849,8 +850,7 @@ namespace Capstone_Project
             //
             // Prompt user for key
             //
-            Console.Write("\tEnter Key: ");
-            key = IsValidInt();
+            key = Validate.ReadInteger("Enter Key: ");
 
             //
             // Read File to retriave password
@@ -870,11 +870,11 @@ namespace Capstone_Project
                     // Echo back encrypted password
                     //
                     Console.WriteLine($"\tEncrypted Password: {encryptedPassword}");
-                    
+
                     //
                     // Echo back decrypted Password
                     //
-                    password = Decrypt(encryptedPassword, key);
+                    password = Cipher.Decrypt(encryptedPassword, key);
                     Console.WriteLine($"\tPassword: {password}");
                 }
             }
@@ -882,131 +882,89 @@ namespace Capstone_Project
             //
             // Menu prompt
             //
-            DisplayMenuPrompt("Login Menu");
+            Theme.DisplayMenuPrompt("Login Menu");
         }
         /// <summary>
         /// ******************************************************
         ///             Display Credentials
         /// ******************************************************
         /// </summary>
-        static void DisplayCredentials()
+        public static void DisplayCredentials()
         {
-            DisplayScreenHeader("User Names and Passwords");
+            Theme.DisplayScreenHeader("User Names and Passwords");
             TableofUserNames();
-            DisplayMenuPrompt("Main Menu");
+            Theme.DisplayMenuPrompt("Main Menu");
         }
-        #endregion
 
-        #region THEME
+    }
+    class Validate
+    {
         /// <summary>
-        /// setup the console theme
+        /// ******************************************************
+        ///             Read Integer Overload
+        /// ******************************************************
         /// </summary>
-        static void SetTheme()
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
-        }
-        #endregion
-
-        #region USER INTERFACE
-
-        /// <summary>
-        /// *****************************************************************
-        /// *                     Welcome Screen                            *
-        /// *****************************************************************
-        /// </summary>
-        static void DisplayWelcomeScreen()
-        {
-            Console.CursorVisible = false;
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("\t\t\tThe Essential Home Application");
-            Console.WriteLine();
-            Console.WriteLine(@"
-                                       /\
-                                  /\  //\\
-                           /\    //\\///\\\        /\
-                          //\\  ///\////\\\\  /\  //\\
-             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \
-            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \
-           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       *
-          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \     /|\
-         / ^ ^  ^ \ ^  _\___________________|  |_____^ ^  \   /||o\
-        / ^^  ^ ^ ^\  /______________________________\ ^ ^ \ /|o|||\
-       /  ^  ^^ ^ ^  /________________________________\  ^  /|||||o|\
-      /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\
-     / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |
-    / ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo
-    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-
-            Console.WriteLine();
-            Console.WriteLine();
-            DisplayContinuePrompt();
-        }
-
-        /// <summary>
-        /// *****************************************************************
-        /// *                     Closing Screen                            *
-        /// *****************************************************************
-        /// </summary>
-        static void DisplayClosingScreen()
-        {
-            Console.CursorVisible = false;
-
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("\tThank you for using square footage evaluator");
-            Console.WriteLine();
-
-            DisplayContinuePrompt();
-        }
-
-        /// <summary>
-        /// display continue prompt
-        /// </summary>
-        static void DisplayContinuePrompt()
-        {
-            Console.WriteLine();
-            Console.WriteLine("\tPress any key to continue.");
-            Console.ReadKey();
-        }
-
-        /// <summary>
-        /// display menu prompt
-        /// </summary>
-        static void DisplayMenuPrompt(string menuName)
-        {
-            Console.WriteLine();
-            Console.WriteLine($"\tPress any key to return to the {menuName} Menu.");
-            Console.ReadKey();
-        }
-
-        /// <summary>
-        /// display screen header
-        /// </summary>
-        static void DisplayScreenHeader(string headerText)
-        {
-            Console.Clear();
-            Console.CursorVisible = false;
-            Console.WriteLine();
-            Console.WriteLine("\t" + headerText);
-            Console.WriteLine();
-        }
-
-        #endregion
-
-        #region VALIDATION METHODS
-        static int PromptUserForInt(string prompt)
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public static int ReadInteger(string prompt)
         {
             int ret;
             Console.Write($"\t{prompt}");
             ret = IsValidInt();
             return ret;
         }
-
         /// <summary>
         /// ******************************************************
-        ///         VALIDATES USER INPUT IS AN INTEGER
+        ///             Read Integer Overload that takes
+        ///             threshold
+        /// ******************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static int ReadInteger(string prompt, int min, int max)
+        {
+            Console.Write(prompt);
+            int thresholdValue = IsValidInt();
+            thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
+            return thresholdValue;
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             Read Double Overload
+        /// ******************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public static double ReadDouble(string prompt)
+        {
+            double ret;
+            Console.Write($"\t{prompt}");
+            ret = IsValidDouble();
+            return ret;
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             Read Double Overload that takes
+        ///             threshold
+        /// ******************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static double ReadDouble(string prompt, int min, int max)
+        {
+
+            Console.Write(prompt);
+            double thresholdValue = IsValidDouble();
+            thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
+            return thresholdValue;
+        }
+        /// <summary>
+        /// ******************************************************
+        ///         Validate Integer
         /// ******************************************************
         /// </summary>
         /// <returns></returns>
@@ -1028,7 +986,7 @@ namespace Capstone_Project
         }
         /// <summary>
         /// ******************************************************
-        ///         VALIDATES USER INPUT IS A DOUBLE
+        ///             Validate Double
         /// ******************************************************
         /// </summary>
         /// <returns></returns>
@@ -1050,31 +1008,14 @@ namespace Capstone_Project
         }
         /// <summary>
         /// ******************************************************
-        ///         PROMPTS FOR INTEGER WITHIN A RANGE
-        ///         VALIDATES USER INPUT
-        /// ******************************************************
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        static int ValidIntegerAndRange(string prompt, int min, int max)
-        {
-            Console.Write(prompt);
-            int thresholdValue = IsValidInt();
-            thresholdValue = isValidThresholdAndRange(thresholdValue, min, max);
-            return thresholdValue;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///         VALIDATES INTEGER FALLS WITHIN A RANGE     
+        ///             Overload for validating int threshold
         /// ******************************************************
         /// </summary>
         /// <param name="thresholdValue"></param>
-        /// <param name="max"></param>
         /// <param name="min"></param>
+        /// <param name="max"></param>
         /// <returns></returns>
-        static int isValidThresholdAndRange(int thresholdValue, int min, int max)
+        static int IsValidThresholdAndRange(int thresholdValue, int min, int max)
         {
             bool isValidThreshold = false;
             while (!isValidThreshold)
@@ -1094,11 +1035,39 @@ namespace Capstone_Project
         }
         /// <summary>
         /// ******************************************************
+        ///             Overload for validating double threshold
+        /// ******************************************************
+        /// </summary>
+        /// <param name="thresholdValue"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        static double IsValidThresholdAndRange(double thresholdValue, int min, int max)
+        {
+            bool isValidThreshold = false;
+            while (!isValidThreshold)
+            {
+                if (thresholdValue > max || thresholdValue < min)
+                {
+                    Console.WriteLine();
+                    Console.Write($"\tPlease enter a threshold value between {min} and {max}: ");
+                    thresholdValue = IsValidDouble();
+                }
+                else
+                {
+                    isValidThreshold = true;
+                }
+            }
+            return thresholdValue;
+        }
+
+        /// <summary>
+        /// ******************************************************
         ///         VALIDATES USER STRING INPUT    
         /// ******************************************************
         /// </summary>
         /// <returns></returns>
-        static string IsValidString()
+        public static string ReadString()
         {
             bool validString = false;
             string roomName;
@@ -1147,9 +1116,106 @@ namespace Capstone_Project
             } while (!validString);
             return roomName;
         }
-        #endregion
+    }
+    class Theme
+    {
+        /// <summary>
+        /// setup the console theme
+        /// </summary>
+        public static void SetTheme()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+        }
 
-        #region Cipher
+        /// <summary>
+        /// *****************************************************************
+        /// *                     Welcome Screen                            *
+        /// *****************************************************************
+        /// </summary>
+        public static void DisplayWelcomeScreen()
+        {
+            Console.CursorVisible = false;
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("\t\t\tThe Essential Home Application");
+            Console.WriteLine();
+            Console.WriteLine(@"
+                                       /\
+                                  /\  //\\
+                           /\    //\\///\\\        /\
+                          //\\  ///\////\\\\  /\  //\\
+             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \
+            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \
+           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       *
+          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \     /|\
+         / ^ ^  ^ \ ^  _\___________________|  |_____^ ^  \   /||o\
+        / ^^  ^ ^ ^\  /______________________________\ ^ ^ \ /|o|||\
+       /  ^  ^^ ^ ^  /________________________________\  ^  /|||||o|\
+      /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\
+     / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |
+    / ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo
+    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+
+            Console.WriteLine();
+            Console.WriteLine();
+            DisplayContinuePrompt();
+        }
+
+        /// <summary>
+        /// *****************************************************************
+        /// *                     Closing Screen                            *
+        /// *****************************************************************
+        /// </summary>
+        public static void DisplayClosingScreen()
+        {
+            Console.CursorVisible = false;
+
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("\tI hope you enjoyed using my application");
+            Console.WriteLine();
+
+            DisplayContinuePrompt();
+        }
+
+        /// <summary>
+        /// display continue prompt
+        /// </summary>
+        public static void DisplayContinuePrompt()
+        {
+            Console.WriteLine();
+            Console.WriteLine("\tPress any key to continue.");
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        /// display menu prompt
+        /// </summary>
+        public static void DisplayMenuPrompt(string menuName)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"\tPress any key to return to the {menuName} Menu.");
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        /// display screen header
+        /// </summary>
+        public static void DisplayScreenHeader(string headerText)
+        {
+            Console.Clear();
+            Console.CursorVisible = false;
+            Console.WriteLine();
+            Console.WriteLine("\t" + headerText);
+            Console.WriteLine();
+        }
+
+
+
+    }
+    class Cipher
+    {
         /// <summary>
         /// ******************************************************
         ///             CHIPHER METHOD
@@ -1180,7 +1246,7 @@ namespace Capstone_Project
         /// <param name="key"></param>
         /// <returns></returns>
 
-        static string Encrypt(string input, int key)
+        public static string Encrypt(string input, int key)
         {
             string output = string.Empty;
 
@@ -1197,11 +1263,10 @@ namespace Capstone_Project
         /// <param name="input"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        static string Decrypt(string input, int key)
+        public static string Decrypt(string input, int key)
         {
             return Encrypt(input, 26 - key);
         }
 
-        #endregion
     }
 }
