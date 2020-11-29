@@ -122,7 +122,7 @@ namespace Capstone_Project
             Theme.PrintColorData("User name: ", userName);
             Theme.PrintColorData("Password: ", password);
             Theme.PrintColorData("Your key: ", $"{key}");
-            Theme.PrintColorData("Encrypted Password:", encryptedPassword);
+            Theme.PrintColorData("Encrypted Password: ", encryptedPassword);
             Console.WriteLine();
             Theme.ColorPrint("Be sure to remember your key, you won't be able to recover or reset it!", ConsoleColor.Red);
 
@@ -200,13 +200,19 @@ namespace Capstone_Project
                 Console.WriteLine();
                 if (validLogin)
                 {
+                    //
+                    // User successfuly logs in, proceed to application
+                    //
                     Theme.Print($"You are now logged in {userName}");
-                    
                     Theme.DisplayContinuePrompt();
                     Menu.DisplayMenuScreen(userName);
                 }
                 else
                 {
+                    //
+                    // Invalid login credentials
+                    // Send back to login menu
+                    //
                     Theme.DisplayMenuPrompt("Login Menu");
                     DisplayLoginMenuScreen();
                 }
@@ -224,11 +230,21 @@ namespace Capstone_Project
         /// <returns></returns>
         static bool isValidLoginInfo(string userName, string password)
         {
+
+            //
+            // Initialize variables
+            //
             List<(string userName, string password)> registeredUserLoginInfo = new List<(string userName, string password)>();
             bool validUser = false;
 
+            //
+            // Get login info from file
+            //
             registeredUserLoginInfo = ReadLoginInfoData();
 
+            //
+            // Iterate through data for login match
+            //
             foreach ((string userName, string password) userLoginInfo in registeredUserLoginInfo)
             {
                 if ((userLoginInfo.userName == userName) && (userLoginInfo.password == password))
@@ -237,6 +253,10 @@ namespace Capstone_Project
                     break;
                 }
             }
+
+            //
+            // If no match tell them their credentials are wrong
+            //
             if (!validUser)
             {
                 Console.WriteLine();
@@ -266,6 +286,9 @@ namespace Capstone_Project
             //
             loginInfoArray = File.ReadAllLines(dataPath);
 
+            //
+            // Iterate through array
+            //
             foreach (string loginInfoText in loginInfoArray)
             {
                 loginInfoArray = loginInfoText.Split(',');
@@ -276,6 +299,9 @@ namespace Capstone_Project
                 registeredUserLoginInfo.Add(loginInfoTuple);
             }
 
+            //
+            // return login info
+            //
             return registeredUserLoginInfo;
 
         }

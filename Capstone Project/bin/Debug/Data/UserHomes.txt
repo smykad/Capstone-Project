@@ -1,12 +1,1 @@
-﻿Doug's Apartment: Bedroom: 150sq ft, Bathroom: 12sq ft, Total Square Footage: 162
-Doug's Apartment: Master Bedroom: 120sq ft, Kitchen: 100sq ft, Office: 50sq ft, Total Square Footage: 270
-Doug's Ranch: Master Bedroom: 20sq ft, Living Room: 30sq ft, Total Square Footage: 50
-Doug's Apartment: Doug's Apartment: Doug's Apartment: Master Bedroom: 20sq ft, Bathroom: 12sq ft, Total Square Footage: 32
-Doug's : Office: 2sq ft, Study: 2sq ft, Total Square Footage: 4
-Doug's Apartment: Master Bedroom: 150sq ft, Bathroom: 12sq ft, Total Square Footage: 162
-Doug's Apartment: Master Bedroom: 156sq ft, Office: 10sq ft, Total Square Footage: 166
-Doug's Apartment: Doug's Apartment: Master Bedroom: 30sq ft, Living Room: 12sq ft, Total Square Footage: 42
-Doug's Fart: Master Bedroom: 120sq ft, Bedroom: 2sq ft, Total Square Footage: 122
-Doug's Studio: Doug's Studio: Doug's Apartment: Doug's Apartment: Bedroom: 50sq ft, Living Room: 12sq ft, Total Square Footage: 62
-Doug's Chataeu: Bedroom: 30sq ft, Study: 9sq ft, Total Square Footage: 39
-Doug's Castle Black: Office: 4.08sq ft, Study: 3.42sq ft, Hallway: 30.51sq ft, Total Square Footage: 38.01
+﻿

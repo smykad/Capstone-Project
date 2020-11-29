@@ -8,6 +8,13 @@ namespace Capstone_Project
 {
     public class Validate
     {
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATE INTEGER, INPUT WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public static int ReadInteger(string prompt)
         {
             int ret;
@@ -17,6 +24,15 @@ namespace Capstone_Project
             Theme.SetForegroundColor();
             return ret;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///         VALIDATE INTEGER, INPUT WHITE,  WITH RANGE OVERLOAD
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         public static int ReadInteger(string prompt, int min, int max)
         {
             Console.Write($"\t{prompt}");
@@ -26,6 +42,13 @@ namespace Capstone_Project
             thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
             return thresholdValue;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATE DOUBLE, INPUT WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public static double ReadDouble(string prompt)
         {
             double ret;
@@ -35,6 +58,15 @@ namespace Capstone_Project
             Theme.SetForegroundColor();
             return ret;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATE DOUBLE, INPUT WHITE, OVERLOAD WITH RANGE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         public static double ReadDouble(string prompt, int min, int max)
         {
 
@@ -46,6 +78,12 @@ namespace Capstone_Project
             thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
             return thresholdValue;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATE INTEGER
+        /// *****************************************************************
+        /// </summary>
+        /// <returns></returns>
         static int IsValidInt()
         {
             bool IsValidInt = false;
@@ -62,6 +100,12 @@ namespace Capstone_Project
             }
             return validInt;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATE DOUBLE
+        /// *****************************************************************
+        /// </summary>
+        /// <returns></returns>
         static double IsValidDouble()
         {
             bool IsValidDouble = false;
@@ -79,6 +123,15 @@ namespace Capstone_Project
             }
             return validDouble;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///         VALIDATE RANGE OF INTEGER, OVERLOAD
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="thresholdValue"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
 
         static int IsValidThresholdAndRange(int thresholdValue, int min, int max)
         {
@@ -101,6 +154,15 @@ namespace Capstone_Project
             }
             return thresholdValue;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATE RANGE OF DOUBLE, OVERLOAD
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="thresholdValue"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
 
         static double IsValidThresholdAndRange(double thresholdValue, int min, int max)
         {
@@ -122,6 +184,12 @@ namespace Capstone_Project
             }
             return thresholdValue;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATE STRING INPUT FOR ROOM CHOICE
+        /// *****************************************************************
+        /// </summary>
+        /// <returns></returns>
         public static string ReadString()
         {
             bool validString = false;

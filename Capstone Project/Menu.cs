@@ -70,7 +70,7 @@ namespace Capstone_Project
 
                     default:
                         Console.WriteLine();
-                        Theme.Print("Please enter a letter for the menu choice.");
+                        Theme.ColorPrint("Please enter a letter for the menu choice.", ConsoleColor.Red);
                         Theme.DisplayContinuePrompt();
                         break;
                 }
@@ -103,6 +103,9 @@ namespace Capstone_Project
 
             foreach (string loginInfoText in loginInfoArray)
             {
+                //
+                // Added in the "'s" to catch similar names like Doug, Douglas
+                //
                 if (loginInfoText.Contains(userName + "'s"))
                 {
                     Theme.Print($"{loginInfoText}");
@@ -123,7 +126,7 @@ namespace Capstone_Project
         static void DisplayApplicationInformation()
         {
             Theme.DisplayScreenHeader("Application Information");
-            Console.WriteLine("Module Under Construction");
+            Theme.Print("Module Under Construction");
             Theme.DisplayMenuPrompt("Main Menu");
         }
     }

@@ -18,17 +18,28 @@ namespace Capstone_Project
             SetForegroundColor();
             Console.BackgroundColor = ConsoleColor.Black;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             SET THEME COLOR
+        /// *****************************************************************
+        /// </summary>
         public static void SetForegroundColor()
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             SET CONSOLE COLOR
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="color"></param>
         public static void SetColor(ConsoleColor color)
         {
             Console.ForegroundColor = color;
         }
         /// <summary>
         /// *****************************************************************
-        ///             SET A STRING A SPECIFIC COLOR
+        ///             MENU IN COLORS
         /// *****************************************************************
         /// </summary>
         /// <param name="message"></param>
@@ -40,13 +51,26 @@ namespace Capstone_Project
             SetForegroundColor();
             Console.Write($"{message}\n");
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT MESSAGE IN COLOR
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="color"></param>
         public static void ColorPrint(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine($"\t{message}");
             SetForegroundColor();
         }
-
+        /// <summary>
+        /// *****************************************************************
+        ///             VALIDATION MESSAGE IN RED, INPUT IN WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="color"></param>
         public static void ValidateColorPrint(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -104,7 +128,9 @@ namespace Capstone_Project
         }
 
         /// <summary>
-        /// display menu prompt
+        /// *****************************************************************
+        ///             DISPLAY MENU PROMPT
+        /// *****************************************************************
         /// </summary>
         public static void DisplayMenuPrompt(string menuName)
         {
@@ -132,7 +158,7 @@ namespace Capstone_Project
         }
         /// <summary>
         /// *****************************************************************
-        ///             PRINT
+        ///             PRINT WITH TAB
         /// *****************************************************************
         /// </summary>
         /// <param name="prompt"></param>
@@ -150,6 +176,13 @@ namespace Capstone_Project
             SetForegroundColor();
             return ret;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT MESSAGE IN THEME COLOR, INPUT IN WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="data"></param>
         public static void PrintColorData(string message, string data)
         {
             Console.Write($"\t{message}");
@@ -157,6 +190,13 @@ namespace Capstone_Project
             Console.Write($"{data}\n");
             SetForegroundColor();
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             READ IN THEME COLOR, INPUT IN WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public static string ReadWrite(string prompt)
         {
             string ret;
@@ -166,6 +206,16 @@ namespace Capstone_Project
             SetForegroundColor();
             return ret;
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT RANGE MESSAGE WITH RED AND WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="dataOne"></param>
+        /// <param name="messageTwo"></param>
+        /// <param name="dataTwo"></param>
+        /// <param name="messageThree"></param>
         public static void RangeMessage(string message, string dataOne, string messageTwo, string dataTwo, string messageThree)
         {
             SetColor(ConsoleColor.Red);
@@ -179,6 +229,13 @@ namespace Capstone_Project
             SetColor(ConsoleColor.Red);
             Console.Write(messageThree);
         }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT TABLE IN CYAN AND WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="dataOne"></param>
+        /// <param name="dataTwo"></param>
         public static void ColorTable(string dataOne, string dataTwo)
         {
             SetColor(ConsoleColor.Cyan);

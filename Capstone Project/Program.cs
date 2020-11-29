@@ -14,7 +14,7 @@ namespace Capstone_Project
     // Description: Calculate square footage of a house
     // Author: Smyka, Doug
     // Dated Created: 11/19/2020
-    // Last Modified: 11/27/2020
+    // Last Modified: 11/28/2020
     //
     // **************************************************
     class Program

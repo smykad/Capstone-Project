@@ -74,7 +74,7 @@ namespace Capstone_Project
 
                     default:
                         Console.WriteLine();
-                        Theme.Print("Please enter a letter for the menu choice.");
+                        Theme.ColorPrint("Please enter a letter for the menu choice.", ConsoleColor.Red);
                         Theme.DisplayContinuePrompt();
                         break;
                 }
@@ -96,21 +96,25 @@ namespace Capstone_Project
             //
             // Display Instructions
             //
-            Console.WriteLine("\tIn this application you will:\n" +
-                "\n\t1. Enter number of rooms in your home" +
-                "\n\t2. Enter the name of your home" +
-                "\n\t3. Enter room type from list below: " +
-                "\n\n\t\tMaster Bedroom" +
-                "\n\t\tBedroom" +
-                "\n\t\tLiving Room" +
-                "\n\t\tHallway" +
-                "\n\t\tKitchen" +
-                "\n\t\tBathroom" +
-                "\n\t\tStudy" +
-                "\n\t\tOffice" +
-                "\n\n\t4. Enter room length" +
-                "\n\t5. Enter room width" +
-                "\n");
+            Theme.Print("In this application you will:");
+            Console.WriteLine();
+            Theme.ColorMenu("1. ", "Enter number of rooms in your home");
+            Theme.ColorMenu("2. ", "Enter the name of your home");
+            Theme.ColorMenu("3. ", "Enter room type from list below: ");
+            Theme.ColorPrint("\n\t\tMaster Bedroom" +
+                            "\n\t\tBedroom" +
+                            "\n\t\tLiving Room" +
+                            "\n\t\tHallway" +
+                            "\n\t\tKitchen" +
+                            "\n\t\tBathroom" +
+                            "\n\t\tStudy" +
+                            "\n\t\tOffice\n", 
+                            ConsoleColor.White);
+            Theme.ColorMenu("4. ", "Enter room length");
+            Theme.ColorMenu("5. ", "Enter room width");
+
+            Console.WriteLine(
+);
 
             //
             // Menu Prompt
