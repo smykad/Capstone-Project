@@ -127,7 +127,11 @@ namespace Capstone_Project
         static void DisplayTotalSqFtData(double[] roomSizes)
         {
             double sum = roomSizes.Sum();
-            Theme.Print($"The total square footage is {sum}");
+            string stringSum = sum.ToString("n2");
+            
+            Theme.ColorTable(string.Format($"{"Total Sq Ft:",17}"), string.Format($"{stringSum,17}\n"));
+            Console.WriteLine();
+            Console.WriteLine();
         }
         /// <summary>
         /// ******************************************************
@@ -146,13 +150,15 @@ namespace Capstone_Project
             //
             // Display Info In Table
             //
-            Console.WriteLine(string.Format($"{"Room Name",17}    {"Square Footage",17}\n"));
+            
+            Theme.ColorPrint(string.Format($"{"Room Name",12}    {"Square Footage",12}\n"), ConsoleColor.Yellow);
 
             for (int i = 0; i < roomSizes.Length; i++)
             {
                 string room = roomSizes[i].ToString("n2");
                 string roomName = roomNames[i];
-                Console.WriteLine(string.Format($"{roomName,17}{room,17}"));
+                
+                Theme.ColorTable(string.Format($"{roomName,17}"), string.Format($"{room,17}\n"));
             }
 
             Console.WriteLine("\n");
@@ -216,15 +222,20 @@ namespace Capstone_Project
             // Display Number of Rooms
             //
             Console.WriteLine();
-            Theme.Print($"Number of Rooms: {numberOfRooms}\n");
+            Console.WriteLine();
+            Theme.PrintColorData($"Number of Rooms: ", $"{numberOfRooms}");
+            Console.WriteLine();
+            
+
             //
             // Display Room Types
             //
             Theme.Print("Types of Rooms:\n");
-            Theme.Print("****************************************************\n" +
-                        "\t* Master Bedroom * Bedroom * Living Room * Hallway *\n" +
-                        "\t*     * Kitchen * Bathroom * Study * Office *      *\n" +
-                        "\t****************************************************\n");
+            Theme.ColorPrint("****************************************************\n" +
+                             "\t* Master Bedroom * Bedroom * Living Room * Hallway *\n" +
+                             "\t*     * Kitchen * Bathroom * Study * Office *      *\n" +
+                             "\t****************************************************\n", 
+                             ConsoleColor.Cyan);
 
             //
             // Get information from user
@@ -308,8 +319,8 @@ namespace Capstone_Project
             //
             // Echo input back to user
             //
-            Console.WriteLine($"\n\tNumber of Rooms: {ret}");
-
+            Theme.PrintColorData($"\n\tNumber of Rooms: ", $"{ret}");
+            
             //
             // Menu Prompt
             //

@@ -42,6 +42,7 @@ namespace Capstone_Project
             Theme.SetColor(ConsoleColor.White);
             double thresholdValue = IsValidDouble();
             Theme.SetForegroundColor();
+            Console.WriteLine();
             thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
             return thresholdValue;
         }
@@ -55,7 +56,7 @@ namespace Capstone_Project
                 if (!IsValidInt)
                 {
                     Console.WriteLine();
-                    Console.Write("\tPlease enter an integer value: ");
+                    Theme.ValidateColorPrint("Please enter an integer value: ", ConsoleColor.Red);
                     IsValidInt = false;
                 }
             }
@@ -71,7 +72,8 @@ namespace Capstone_Project
                 if (!IsValidDouble)
                 {
                     Console.WriteLine();
-                    Console.Write("\tPlease enter a numeric value: ");
+                    Theme.ValidateColorPrint("Please enter a numeric value: ", ConsoleColor.Red);
+                    
                     IsValidDouble = false;
                 }
             }
@@ -86,7 +88,8 @@ namespace Capstone_Project
                 if (thresholdValue > max || thresholdValue < min)
                 {
                     Console.WriteLine();
-                    Console.Write($"\tPlease enter a threshold value between {min} and {max}: ");
+
+                    Theme.RangeMessage("Please enter a threshold value between", $" {min} ", "and", $" {max}",": ");
                     Theme.SetColor(ConsoleColor.White);
                     thresholdValue = IsValidInt();
                     Theme.SetForegroundColor();
@@ -107,7 +110,7 @@ namespace Capstone_Project
                 if (thresholdValue > max || thresholdValue < min)
                 {
                     Console.WriteLine();
-                    Console.Write($"\tPlease enter a threshold value between {min} and {max}: ");
+                    Theme.RangeMessage("Please enter a threshold value between", $"{min}", "and", $"{max}",": ");
                     Theme.SetColor(ConsoleColor.White);
                     thresholdValue = IsValidDouble();
                     Theme.SetForegroundColor();
@@ -127,6 +130,7 @@ namespace Capstone_Project
             {
                 Theme.SetColor(ConsoleColor.White);
                 roomName = Console.ReadLine().ToLower();
+                Theme.SetForegroundColor();
                 switch (roomName)
                 {
                     case "master bedroom":
@@ -163,7 +167,9 @@ namespace Capstone_Project
                         break;
                     default:
                         Theme.SetForegroundColor();
-                        Console.Write("\tInvalid input. Enter valid room name: ");
+                        Console.WriteLine();
+                        Theme.ValidateColorPrint("Invalid input. Enter valid room name: ", ConsoleColor.Red);
+
                         break;
                 }
 

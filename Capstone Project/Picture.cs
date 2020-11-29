@@ -104,7 +104,7 @@ namespace Capstone_Project
         {
             DGreen();
             Console.Write(imageOne);
-            DRed();
+            DCyan();
             Console.Write(imageTwo);
             DGreen();
             Console.WriteLine(imageThree);
@@ -113,7 +113,7 @@ namespace Capstone_Project
         {
             DGreen();
             Console.Write(imageOne);
-            Magenta();
+            DGray();
             Console.Write(imageTwo);
             White();
             Console.Write(imageThree);
@@ -128,15 +128,15 @@ namespace Capstone_Project
         {
             DGreen();
             Console.Write(imageOne);
-            Magenta();
+            DGray();
             Console.Write(imageTwo);
             Blue();
             Console.Write(imageThree);
-            Magenta();
+            DGray();
             Console.Write(imageFour);
             Blue();
             Console.Write(imageFive);
-            Magenta();
+            DGray();
             Console.Write(imageSix);
             DYellow();
             Console.WriteLine(imageSeven);
@@ -147,15 +147,15 @@ namespace Capstone_Project
         {
             DGreen();
             Console.Write(imageOne);
-            Magenta();
+            DGray();
             Console.Write(imageTwo);
             Blue();
             Console.Write(imageThree);
-            Magenta();
+            DGray();
             Console.Write(imageFour);
             Blue();
             Console.Write(imageFive);
-            Magenta();
+            DGray();
             Console.Write(imageSix);
             DGreen();
             Console.Write(imageSeven);
@@ -169,7 +169,7 @@ namespace Capstone_Project
         {
             DGreen();
             Console.Write(imageOne);
-            DRed();
+            DCyan();
             Console.Write(imageTwo);
             DGreen();
             Console.Write(imageThree);
@@ -184,11 +184,11 @@ namespace Capstone_Project
         {
             DGreen();
             Console.Write(imageOne);
-            DRed();
+            DCyan();
             Console.Write(imageTwo);
             DGreen();
             Console.Write(imageThree);
-            DRed();
+            DCyan();
             Console.Write(imageFour);
             DGreen();
             Console.Write(imageFive);
@@ -207,9 +207,9 @@ namespace Capstone_Project
         {
             Theme.SetColor(ConsoleColor.DarkGreen);
         }
-        static void DRed()
+        static void DCyan()
         {
-            Theme.SetColor(ConsoleColor.DarkRed);
+            Theme.SetColor(ConsoleColor.DarkCyan);
         }
         static void Blue()
         {
@@ -227,9 +227,9 @@ namespace Capstone_Project
         {
             Theme.SetColor(ConsoleColor.White);
         }
-        static void Magenta()
+        static void DGray()
         {
-            Theme.SetColor(ConsoleColor.Magenta);
+            Theme.SetColor(ConsoleColor.DarkGray);
         }
     }
 }

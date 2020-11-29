@@ -58,7 +58,7 @@ namespace Capstone_Project
 
                     default:
                         Console.WriteLine();
-                        Theme.Print("Please enter a letter for the menu choice.");
+                        Theme.ColorPrint("Please enter a letter for the menu choice.", ConsoleColor.Red);
                         Theme.DisplayContinuePrompt();
                         break;
                 }
@@ -239,7 +239,8 @@ namespace Capstone_Project
             }
             if (!validUser)
             {
-                Theme.Print("Wrong login credentials");
+                Console.WriteLine();
+                Theme.ColorPrint("Wrong login credentials", ConsoleColor.Red);
             }
             return validUser;
         }
@@ -323,7 +324,7 @@ namespace Capstone_Project
             bool validUserName = File.ReadLines(dataPath).Contains(userName);
             if (validUserName)
             {
-                Theme.Print($"User name already taken.");
+                Theme.ColorPrint($"User name already taken.", ConsoleColor.Red);
             }
             return validUserName;
         }
@@ -416,6 +417,10 @@ namespace Capstone_Project
                     //
                     password = Cipher.Decrypt(encryptedPassword, key);
                     Theme.Print($"Password: {password}");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Theme.ColorPrint("If your password looks incorrect you provided the " +
+                        "wrong key, come back and try again!", ConsoleColor.Red);
                 }
             }
 

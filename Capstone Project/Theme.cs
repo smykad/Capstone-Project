@@ -47,6 +47,13 @@ namespace Capstone_Project
             SetForegroundColor();
         }
 
+        public static void ValidateColorPrint(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write($"\t{message}");
+            SetColor(ConsoleColor.White);
+        }
+
         /// <summary>
         /// *****************************************************************
         ///             WELCOME SCREEN
@@ -158,6 +165,27 @@ namespace Capstone_Project
             ret = Console.ReadLine();
             SetForegroundColor();
             return ret;
+        }
+        public static void RangeMessage(string message, string dataOne, string messageTwo, string dataTwo, string messageThree)
+        {
+            SetColor(ConsoleColor.Red);
+            Console.Write($"\t{message}");
+            SetColor(ConsoleColor.White);
+            Console.Write(dataOne);
+            SetColor(ConsoleColor.Red);
+            Console.Write(messageTwo);
+            SetColor(ConsoleColor.White);
+            Console.Write(dataTwo);
+            SetColor(ConsoleColor.Red);
+            Console.Write(messageThree);
+        }
+        public static void ColorTable(string dataOne, string dataTwo)
+        {
+            SetColor(ConsoleColor.Cyan);
+            Console.Write(dataOne);
+            SetColor(ConsoleColor.White);
+            Console.Write(dataTwo);
+            SetForegroundColor();
         }
     }
 }
