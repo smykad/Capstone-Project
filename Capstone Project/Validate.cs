@@ -8,55 +8,44 @@ namespace Capstone_Project
 {
     public class Validate
     {
-        private string _prompt;
-        private int _integer;
-        private double _double;
-
-        public double Double
+        public static int ReadInteger(string prompt)
         {
-            get { return _double; }
-            set { _double = value; }
-        }
-        public string Prompt
-        {
-            get { return _prompt; }
-            set { _prompt = value; }
-        }
-        public int Integer
-        {
-            get { return _integer; }
-            set { _integer = value; }
-        }
-        public Validate(string prompt, string type)
-        {
-            _prompt = prompt;
+            int ret;
             Console.Write($"\t{prompt}");
-            if (type == "integer")
-            {
-                _integer = IsValidInt();
-            }
-            if (type == "double")
-            {
-                _double = IsValidDouble();
-            }
+            Theme.SetColor(ConsoleColor.White);
+            ret = IsValidInt();
+            Theme.SetForegroundColor();
+            return ret;
         }
-        public Validate(string prompt, string type, int min, int max)
+        public static int ReadInteger(string prompt, int min, int max)
         {
-            _prompt = prompt;
             Console.Write($"\t{prompt}");
-            if (type == "integer")
-            {
-                _integer = IsValidInt();
-                _integer = IsValidThresholdAndRange(_integer, min, max);
-            }
-            if (type == "double")
-            {
-                _double = IsValidDouble();
-                _double = IsValidThresholdAndRange(_double, min, max);
-            }
+            Theme.SetColor(ConsoleColor.White);
+            int thresholdValue = IsValidInt();
+            Theme.SetForegroundColor();
+            thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
+            return thresholdValue;
         }
+        public static double ReadDouble(string prompt)
+        {
+            double ret;
+            Console.Write($"\t{prompt}");
+            Theme.SetColor(ConsoleColor.White);
+            ret = IsValidDouble();
+            Theme.SetForegroundColor();
+            return ret;
+        }
+        public static double ReadDouble(string prompt, int min, int max)
+        {
 
-        int IsValidInt()
+            Console.Write(prompt);
+            Theme.SetColor(ConsoleColor.White);
+            double thresholdValue = IsValidDouble();
+            Theme.SetForegroundColor();
+            thresholdValue = IsValidThresholdAndRange(thresholdValue, min, max);
+            return thresholdValue;
+        }
+        static int IsValidInt()
         {
             bool IsValidInt = false;
             int validInt = 0;
@@ -72,7 +61,7 @@ namespace Capstone_Project
             }
             return validInt;
         }
-        double IsValidDouble()
+        static double IsValidDouble()
         {
             bool IsValidDouble = false;
             double validDouble = 0;
@@ -89,7 +78,7 @@ namespace Capstone_Project
             return validDouble;
         }
 
-        int IsValidThresholdAndRange(int thresholdValue, int min, int max)
+        static int IsValidThresholdAndRange(int thresholdValue, int min, int max)
         {
             bool isValidThreshold = false;
             while (!isValidThreshold)
@@ -98,7 +87,9 @@ namespace Capstone_Project
                 {
                     Console.WriteLine();
                     Console.Write($"\tPlease enter a threshold value between {min} and {max}: ");
+                    Theme.SetColor(ConsoleColor.White);
                     thresholdValue = IsValidInt();
+                    Theme.SetForegroundColor();
                 }
                 else
                 {
@@ -108,7 +99,7 @@ namespace Capstone_Project
             return thresholdValue;
         }
 
-        double IsValidThresholdAndRange(double thresholdValue, int min, int max)
+        static double IsValidThresholdAndRange(double thresholdValue, int min, int max)
         {
             bool isValidThreshold = false;
             while (!isValidThreshold)
@@ -117,7 +108,9 @@ namespace Capstone_Project
                 {
                     Console.WriteLine();
                     Console.Write($"\tPlease enter a threshold value between {min} and {max}: ");
+                    Theme.SetColor(ConsoleColor.White);
                     thresholdValue = IsValidDouble();
+                    Theme.SetForegroundColor();
                 }
                 else
                 {
@@ -132,6 +125,7 @@ namespace Capstone_Project
             string roomName;
             do
             {
+                Theme.SetColor(ConsoleColor.White);
                 roomName = Console.ReadLine().ToLower();
                 switch (roomName)
                 {
@@ -168,6 +162,7 @@ namespace Capstone_Project
                         validString = true;
                         break;
                     default:
+                        Theme.SetForegroundColor();
                         Console.Write("\tInvalid input. Enter valid room name: ");
                         break;
                 }

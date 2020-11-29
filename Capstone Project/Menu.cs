@@ -34,15 +34,13 @@ namespace Capstone_Project
                 //
                 // Get user menu choice
                 //
-                Console.WriteLine("\tA: Application Information");
-                Console.WriteLine("\tB: Home Data Menu");
-                Console.WriteLine("\tC: Returning User Data");
-                Console.WriteLine("\tD: Stored Users and Passwords");
-                Console.WriteLine("\tQ: Quit");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.Write("\tEnter Choice: ");
-                menuChoice = Console.ReadLine().ToLower();
+                Theme.ColorMenu("A: ", "Application Information");
+                Theme.ColorMenu("B: ", "Home Data Menu");
+                Theme.ColorMenu("C: ", "Returning User Data");
+                Theme.ColorMenu("D: ", "Stored Users and Passwords");
+                Theme.ColorMenu("Q: ", "Quit");
+                menuChoice = Theme.MenuChoice("\n\n\tEnter Choice: ").ToLower();
+                
 
                 //
                 // Process user menu choice
@@ -72,7 +70,7 @@ namespace Capstone_Project
 
                     default:
                         Console.WriteLine();
-                        Console.WriteLine("\tPlease enter a letter for the menu choice.");
+                        Theme.Print("Please enter a letter for the menu choice.");
                         Theme.DisplayContinuePrompt();
                         break;
                 }
@@ -105,9 +103,9 @@ namespace Capstone_Project
 
             foreach (string loginInfoText in loginInfoArray)
             {
-                if (loginInfoText.Contains(userName))
+                if (loginInfoText.Contains(userName + "'s"))
                 {
-                    Console.WriteLine($"\t{loginInfoText}");
+                    Theme.Print($"{loginInfoText}");
                 }
             }
 

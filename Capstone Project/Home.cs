@@ -22,29 +22,29 @@ namespace Capstone_Project
             // Initialize variables
             //
             int numberOfRooms = 0;
-            int[] roomSizes = null;
+            double[] roomSizes = null;
             string[] roomNames = null;
 
             bool quitMenu = false;
             string menuChoice;
+            string homeName = "Home";
 
             do
             {
                 //
                 // Display Header
                 //
-                Theme.DisplayScreenHeader($"{userName} Home Data Menu");
+                Theme.DisplayScreenHeader($"{userName}'s {homeName} Data Menu");
 
                 //
                 // Get user menu choice
                 //
-                Console.WriteLine("\tA: Instructions");
-                Console.WriteLine("\tB: Number of Rooms");
-                Console.WriteLine("\tC: Room Data");
-                Console.WriteLine("\tD: Show Data");
-                Console.WriteLine("\tQ: Quit\n\n");
-                Console.Write("\tEnter Choice: ");
-                menuChoice = Console.ReadLine().ToLower();
+                Theme.ColorMenu("A: ", "Instructions");
+                Theme.ColorMenu("B: ", "Number of Rooms");
+                Theme.ColorMenu("C: ", "Home Name and Room Data");
+                Theme.ColorMenu("D: ", $"Show {userName}'s Data");
+                Theme.ColorMenu("Q: ", "Quit\n\n");
+                menuChoice = Theme.MenuChoice("Enter Choice: ").ToLower();
 
                 //
                 // Process user menu choice
@@ -52,19 +52,19 @@ namespace Capstone_Project
                 switch (menuChoice)
                 {
                     case "a":
-                        DisplayInstructions();
+                        DisplayInstructions(userName, homeName);
 
                         break;
                     case "b":
-                        numberOfRooms = DisplayGetNumberOfRoomsData();
+                        numberOfRooms = DisplayGetNumberOfRoomsData(userName, homeName);
                         break;
 
                     case "c":
-                        DisplayGetRoomNameAndSizeData(numberOfRooms, out roomSizes, out roomNames, userName);
+                        DisplayGetRoomNameAndSizeData(numberOfRooms, out roomSizes, out roomNames, userName, out homeName);
                         break;
 
                     case "d":
-                        DisplayRoomSizeNameData(roomSizes, roomNames);
+                        DisplayRoomSizeNameData(roomSizes, roomNames, homeName, userName);
                         break;
 
                     case "q":
@@ -74,7 +74,7 @@ namespace Capstone_Project
 
                     default:
                         Console.WriteLine();
-                        Console.WriteLine("\tPlease enter a letter for the menu choice.");
+                        Theme.Print("Please enter a letter for the menu choice.");
                         Theme.DisplayContinuePrompt();
                         break;
                 }
@@ -86,7 +86,7 @@ namespace Capstone_Project
         ///             DISPLAY INSTRUCTIONS
         /// ******************************************************
         /// </summary>
-        static void DisplayInstructions()
+        static void DisplayInstructions(string userName, string homeName)
         {
             //
             // Display Header
@@ -98,8 +98,9 @@ namespace Capstone_Project
             //
             Console.WriteLine("\tIn this application you will:\n" +
                 "\n\t1. Enter number of rooms in your home" +
-                "\n\t2. Enter room type from list below: " +
-                "\n\t\tMaster Bedroom" +
+                "\n\t2. Enter the name of your home" +
+                "\n\t3. Enter room type from list below: " +
+                "\n\n\t\tMaster Bedroom" +
                 "\n\t\tBedroom" +
                 "\n\t\tLiving Room" +
                 "\n\t\tHallway" +
@@ -107,14 +108,14 @@ namespace Capstone_Project
                 "\n\t\tBathroom" +
                 "\n\t\tStudy" +
                 "\n\t\tOffice" +
-                "\n\t3. Enter room length" +
-                "\n\t4. Enter room width" +
+                "\n\n\t4. Enter room length" +
+                "\n\t5. Enter room width" +
                 "\n");
 
             //
             // Menu Prompt
             //
-            Theme.DisplayMenuPrompt("User Data Menu");
+            Theme.DisplayMenuPrompt($"{userName}'s {homeName} Data Menu");
         }
 
         /// <summary>
@@ -123,10 +124,10 @@ namespace Capstone_Project
         /// ******************************************************
         /// </summary>
         /// <param name="roomsizes"></param>
-        static void DisplayTotalSqFtData(int[] roomSizes)
+        static void DisplayTotalSqFtData(double[] roomSizes)
         {
-            int sum = roomSizes.Sum();
-            Console.WriteLine($"\tThe total square footage is {sum}");
+            double sum = roomSizes.Sum();
+            Theme.Print($"The total square footage is {sum}");
         }
         /// <summary>
         /// ******************************************************
@@ -135,12 +136,12 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="roomSizes"></param>
         /// <param name="roomNames"></param>
-        static void DisplayRoomSizeNameData(int[] roomSizes, string[] roomNames)
+        static void DisplayRoomSizeNameData(double[] roomSizes, string[] roomNames, string homeName, string userName)
         {
             //
             // Display Header
             //
-            Theme.DisplayScreenHeader("\t\tRoom Size Data");
+            Theme.DisplayScreenHeader($"\t{userName}'s {homeName} Data");
 
             //
             // Display Info In Table
@@ -164,7 +165,7 @@ namespace Capstone_Project
             //
             // Menu Prompt
             //
-            Theme.DisplayMenuPrompt("User Data Menu");
+            Theme.DisplayMenuPrompt($"{userName}'s Data Menu");
 
         }
         /// <summary>
@@ -175,57 +176,70 @@ namespace Capstone_Project
         /// <param name="numberOfRooms"></param>
         /// <param name="sizes"></param>
         /// <param name="names"></param>
-        static void DisplayGetRoomNameAndSizeData(int numberOfRooms, out int[] sizes, out string[] names, string userName)
+        static void DisplayGetRoomNameAndSizeData(int numberOfRooms, out double[] sizes, out string[] names, string userName, out string homeName)
         {
             //
             // Initialize variables
             //
             
-            int[] roomSizes = new int[numberOfRooms];
+            double[] roomSizes = new double[numberOfRooms];
             string[] roomNames = new string[numberOfRooms];
             string roomAndSizes;
             string strRmSize;
-            int roomSize, sum;
-            string roomName = "";
+            string userNameAndHomeEntry;
+            double length, width, roomSize, sum;
+            string roomName;
             string dataPath = @"Data/UserHomes.txt";
-
-            //
-            // Start Entry in text file with userName
-            //
-            string userNameEntry = userName + ": ";
-            File.AppendAllText(dataPath, userNameEntry);
+            
+            
 
             //
             // Display Header
             //
-            Theme.DisplayScreenHeader("Get Room Size Data");
+            Theme.DisplayScreenHeader($"Get {userName}'s Home Name and Data");
+                        
+            Console.WriteLine();
+
+            //
+            // Get home name from user
+            //
+            homeName = Theme.ReadWrite("Enter home name: ");
+            userNameAndHomeEntry = userName + "'s " + homeName + ": ";
+            
+            //
+            // Save users name and home name to file
+            //
+            File.AppendAllText(dataPath, userNameAndHomeEntry);
+
 
             //
             // Display Number of Rooms
             //
-            Console.WriteLine($"\n\tNumber of Rooms: {numberOfRooms}\n");
-
+            Console.WriteLine();
+            Theme.Print($"Number of Rooms: {numberOfRooms}\n");
             //
             // Display Room Types
             //
-            Console.WriteLine("\tTypes of Rooms:\n");
-            Console.WriteLine("\t****************************************************\n" +
-                              "\t* Master Bedroom * Bedroom * Living Room * Hallway *\n" +
-                              "\t*     * Kitchen * Bathroom * Study * Office *      *\n" +
-                              "\t****************************************************\n");
+            Theme.Print("Types of Rooms:\n");
+            Theme.Print("****************************************************\n" +
+                        "\t* Master Bedroom * Bedroom * Living Room * Hallway *\n" +
+                        "\t*     * Kitchen * Bathroom * Study * Office *      *\n" +
+                        "\t****************************************************\n");
 
             //
             // Get information from user
             //
+                   
             for (int i = 0; i < numberOfRooms; i++)
             {
                 Console.Write("\tEnter Room Name: ");
                 roomName = Validate.ReadString();
-
-                Validate length = new Validate($"Enter length of {roomName}: ", "integer");
-                Validate width = new Validate($"Enter width of {roomName}: ", "integer");
-;
-                roomSize = length.Integer * width.Integer;
+                
+                Console.WriteLine();
+                length = Validate.ReadDouble($"Enter length of {roomName}: ");
+                width = Validate.ReadDouble($"Enter width of {roomName}: ");
+                Console.WriteLine();
+                roomSize = length * width;
 
                 strRmSize = roomSize.ToString();
 
@@ -244,7 +258,7 @@ namespace Capstone_Project
                 //
                 if (i < numberOfRooms - 1)
                 {
-                    roomAndSizes = roomName + ": " + strRmSize + ", ";
+                    roomAndSizes = roomName + ": " + strRmSize + "sq ft, ";
                     File.AppendAllText(dataPath, roomAndSizes);
                 }
 
@@ -254,7 +268,7 @@ namespace Capstone_Project
                 if (i == numberOfRooms - 1)
                 {
                     sum = roomSizes.Sum();
-                    roomAndSizes = roomName + ": " + strRmSize + ", Total Square Footage: " + sum + "\n";
+                    roomAndSizes = roomName + ": " + strRmSize + "sq ft, Total Square Footage: " + sum + "\n";
                     File.AppendAllText(dataPath, roomAndSizes);
                 }
             }
@@ -265,7 +279,7 @@ namespace Capstone_Project
             //
             // Menu Prompt
             //
-            Theme.DisplayMenuPrompt("User Data Menu");
+            Theme.DisplayMenuPrompt($"{userName}'s {homeName} Data Menu");
 
         }
         /// <summary>
@@ -274,7 +288,7 @@ namespace Capstone_Project
         /// ******************************************************
         /// </summary>
         /// <returns></returns>
-        static int DisplayGetNumberOfRoomsData()
+        static int DisplayGetNumberOfRoomsData(string userName, string homeName)
         {
             //
             // Initialize variables
@@ -289,8 +303,7 @@ namespace Capstone_Project
             //
             // Prompt user for number of Rooms
             //
-            Validate rooms = new Validate("Enter number of Rooms: ", "integer");
-            ret = rooms.Integer;
+            ret = Validate.ReadInteger("Enter number of Rooms: ");
 
             //
             // Echo input back to user
@@ -300,7 +313,7 @@ namespace Capstone_Project
             //
             // Menu Prompt
             //
-            Theme.DisplayMenuPrompt("User Data Menu");
+            Theme.DisplayMenuPrompt($"{userName}'s {homeName} Data Menu");
 
             //
             // Return number of rooms

@@ -1,1 +1,4 @@
-﻿
+﻿Doug's Apartment: Bedroom: 150sq ft, Bathroom: 12sq ft, Total Square Footage: 162
+Doug's Apartment: Master Bedroom: 120sq ft, Kitchen: 100sq ft, Office: 50sq ft, Total Square Footage: 270
+Doug's Ranch: Master Bedroom: 20sq ft, Living Room: 30sq ft, Total Square Footage: 50
+Doug's Apartment: 

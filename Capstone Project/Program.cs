@@ -21,11 +21,10 @@ namespace Capstone_Project
     {
         static void Main(string[] args)
         {
-            string userName;
+            
             Theme.SetTheme();
             Theme.DisplayWelcomeScreen();
-            userName = Login.DisplayLoginMenuScreen();
-            Menu.DisplayMenuScreen(userName);
+            Login.DisplayLoginMenuScreen();
             Theme.DisplayClosingScreen();
         }
     }

@@ -15,7 +15,7 @@ namespace Capstone_Project
         /// *****************************************************************
         /// </summary>
         /// <returns></returns>
-        public static string DisplayLoginMenuScreen()
+        public static void DisplayLoginMenuScreen()
         {
             Console.CursorVisible = true;
 
@@ -24,7 +24,6 @@ namespace Capstone_Project
             //
             bool quitMenu = false;
             string menuChoice;
-            string userName = "";
 
             do
             {
@@ -33,11 +32,11 @@ namespace Capstone_Project
                 //
                 // get user menu choice
                 //
-                Console.WriteLine("\tL: Log in");
-                Console.WriteLine("\tA: Register");
-                Console.WriteLine("\tB: Recover Password");
-                Console.Write("\n\n\tEnter Choice: ");
-                menuChoice = Console.ReadLine().ToLower();
+                Theme.ColorMenu("L: ", "Log in");
+                Theme.ColorMenu("A: ", "Register");
+                Theme.ColorMenu("B: ", "Recover Password");
+                
+                menuChoice = Theme.MenuChoice("\n\n\tEnter Choice: ").ToLower();
 
                 //
                 // process user menu choice
@@ -45,7 +44,7 @@ namespace Capstone_Project
                 switch (menuChoice)
                 {
                     case "l":
-                        userName = DisplayLogin();
+                        DisplayLogin();
                         quitMenu = true;
                         break;
 
@@ -59,17 +58,13 @@ namespace Capstone_Project
 
                     default:
                         Console.WriteLine();
-                        Console.WriteLine("\tPlease enter a letter for the menu choice.");
+                        Theme.Print("Please enter a letter for the menu choice.");
                         Theme.DisplayContinuePrompt();
                         break;
                 }
 
             } while (!quitMenu);
 
-            //
-            // Return username for use in persistence
-            //
-            return userName;
         }
         /// <summary>
         /// ******************************************************
@@ -99,14 +94,13 @@ namespace Capstone_Project
             //
             // Get Password
             //
-            Console.Write("\tEnter your password: ");
-            password = Console.ReadLine();
-
+            password = Theme.ReadWrite("Enter your password: ");
+            
             //
             // Get Cipher Key
             //
-            Validate keyValue = new Validate("Enter a cipher value between 1 and 26: ", "integer", 1, 26);
-            key = keyValue.Integer;
+            key = Validate.ReadInteger("Enter a cipher value between 1 and 26: ",  1, 26);
+            
             encryptedPassword = Cipher.Encrypt(password, key);
 
             //
@@ -123,12 +117,14 @@ namespace Capstone_Project
             // Echo back login credentials
             //
             Console.WriteLine();
-            Console.WriteLine("\tYour login credentials are as followed: ");
-            Console.WriteLine($"\tUser name: {userName}");
-            Console.WriteLine($"\tPassword: {password}");
-            Console.WriteLine($"\tYour key: {key}");
-            Console.WriteLine($"\tEncrypted Password: {encryptedPassword}");
-            Console.WriteLine("\tBe sure to remember your key, you won't be able to recover or reset it!");
+            Theme.Print("Your login credentials are as followed: ");
+            Theme.PrintColorData("Username: ", userName);
+            Theme.PrintColorData("User name: ", userName);
+            Theme.PrintColorData("Password: ", password);
+            Theme.PrintColorData("Your key: ", $"{key}");
+            Theme.PrintColorData("Encrypted Password:", encryptedPassword);
+            Console.WriteLine();
+            Theme.ColorPrint("Be sure to remember your key, you won't be able to recover or reset it!", ConsoleColor.Red);
 
             //
             // Menu Prompt
@@ -154,7 +150,7 @@ namespace Capstone_Project
         ///             DISPLAY LOGIN
         /// ******************************************************
         /// </summary>
-        static string DisplayLogin()
+        static void DisplayLogin()
         {
             //
             // Initialize Variables
@@ -178,21 +174,18 @@ namespace Capstone_Project
                 //
                 // Prompt for username
                 //
-                Console.Write("\tEnter your username: ");
-                userName = Console.ReadLine();
+                userName = Theme.ReadWrite("Enter your username: ");
 
                 //
                 // Prompt for password
                 //
-                Console.Write("\tEnter password: ");
-                password = Console.ReadLine();
-
+                password = Theme.ReadWrite("Enter password: ");
+                
                 //
                 // Prompt for key
                 //
-                Validate keyValue = new Validate("Enter Key: ", "integer");
-                key = keyValue.Integer;
-
+                key = Validate.ReadInteger("Enter Key: ");
+                
                 //
                 // Encrypt Password
                 //
@@ -207,8 +200,10 @@ namespace Capstone_Project
                 Console.WriteLine();
                 if (validLogin)
                 {
-                    Console.WriteLine($"\tYou are now logged in {userName}");
+                    Theme.Print($"You are now logged in {userName}");
+                    
                     Theme.DisplayContinuePrompt();
+                    Menu.DisplayMenuScreen(userName);
                 }
                 else
                 {
@@ -218,10 +213,6 @@ namespace Capstone_Project
 
             } while (!validLogin);
 
-            //
-            // Return userName for later use
-            //
-            return userName;
         }
         /// <summary>
         /// ******************************************************
@@ -248,7 +239,7 @@ namespace Capstone_Project
             }
             if (!validUser)
             {
-                Console.WriteLine("\tWrong login credentials");
+                Theme.Print("Wrong login credentials");
             }
             return validUser;
         }
@@ -312,8 +303,7 @@ namespace Capstone_Project
             string userName;
             do
             {
-                Console.Write("\tEnter user name: ");
-                userName = Console.ReadLine();
+                userName = Theme.ReadWrite("Enter user name: ");
                 validUserName = isValidUserName(userName);
 
             } while (validUserName);
@@ -333,7 +323,7 @@ namespace Capstone_Project
             bool validUserName = File.ReadLines(dataPath).Contains(userName);
             if (validUserName)
             {
-                Console.WriteLine($"\tUser name already taken.");
+                Theme.Print($"User name already taken.");
             }
             return validUserName;
         }
@@ -395,14 +385,12 @@ namespace Capstone_Project
             //
             // Prompt user for username
             //
-            Console.Write("\tEnter username: ");
-            userName = Console.ReadLine();
-
+            userName = Theme.ReadWrite("Enter username: ");
+            
             //
             // Prompt user for key
             //
-            Validate keyValue = new Validate("Enter Key: ", "integer");
-            key = keyValue.Integer;
+            key = Validate.ReadInteger("Enter Key: ", 1, 26);
 
             //
             // Read File to retriave password
@@ -410,7 +398,7 @@ namespace Capstone_Project
             loginInfoArray = File.ReadAllLines(dataPath);
             foreach (string loginInfoText in loginInfoArray)
             {
-                if (loginInfoText.Contains(userName))
+                if (loginInfoText.Contains(userName + ","))
                 {
                     loginInfoArray = loginInfoText.Split(',');
 
@@ -421,13 +409,13 @@ namespace Capstone_Project
                     //
                     // Echo back encrypted password
                     //
-                    Console.WriteLine($"\tEncrypted Password: {encryptedPassword}");
+                    Theme.Print($"Encrypted Password: {encryptedPassword}");
 
                     //
                     // Echo back decrypted Password
                     //
                     password = Cipher.Decrypt(encryptedPassword, key);
-                    Console.WriteLine($"\tPassword: {password}");
+                    Theme.Print($"Password: {password}");
                 }
             }
 

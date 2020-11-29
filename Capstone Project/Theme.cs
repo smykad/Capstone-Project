@@ -9,17 +9,47 @@ namespace Capstone_Project
     class Theme
     {
         /// <summary>
-        /// setup the console theme
+        /// *****************************************************************
+        ///             SET UP CONSOLE THEME
+        /// *****************************************************************
         /// </summary>
         public static void SetTheme()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            SetForegroundColor();
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        public static void SetForegroundColor()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+        }
+        public static void SetColor(ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             SET A STRING A SPECIFIC COLOR
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="color"></param>
+        public static void ColorMenu(string menuLetter, string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"\t{menuLetter}");
+            SetForegroundColor();
+            Console.Write($"{message}\n");
+        }
+        public static void ColorPrint(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine($"\t{message}");
+            SetForegroundColor();
         }
 
         /// <summary>
         /// *****************************************************************
-        /// *                     Welcome Screen                            *
+        ///             WELCOME SCREEN
         /// *****************************************************************
         /// </summary>
         public static void DisplayWelcomeScreen()
@@ -27,33 +57,18 @@ namespace Capstone_Project
             Console.CursorVisible = false;
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("\t\t\tThe Essential Home Application");
+            ColorPrint("\t\tThe Essential Home Application", ConsoleColor.DarkMagenta);
             Console.WriteLine();
-            Console.WriteLine(@"
-                                       /\
-                                  /\  //\\
-                           /\    //\\///\\\        /\
-                          //\\  ///\////\\\\  /\  //\\
-             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \
-            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \
-           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       *
-          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \     /|\
-         / ^ ^  ^ \ ^  _\___________________|  |_____^ ^  \   /||o\
-        / ^^  ^ ^ ^\  /______________________________\ ^ ^ \ /|o|||\
-       /  ^  ^^ ^ ^  /________________________________\  ^  /|||||o|\
-      /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\
-     / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |
-    / ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo
-    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-
+            Picture.PrintImage();
             Console.WriteLine();
             Console.WriteLine();
             DisplayContinuePrompt();
         }
 
+
         /// <summary>
         /// *****************************************************************
-        /// *                     Closing Screen                            *
+        ///             CLOSING SCREEN
         /// *****************************************************************
         /// </summary>
         public static void DisplayClosingScreen()
@@ -62,19 +77,22 @@ namespace Capstone_Project
 
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("\tI hope you enjoyed using my application");
+            Print("I hope you enjoyed using my application");
             Console.WriteLine();
 
             DisplayContinuePrompt();
         }
 
         /// <summary>
-        /// display continue prompt
+        /// *****************************************************************
+        ///             DISPLAY CONTINUE PROMPT
+        /// *****************************************************************
+        /// 
         /// </summary>
         public static void DisplayContinuePrompt()
         {
             Console.WriteLine();
-            Console.WriteLine("\tPress any key to continue.");
+            ColorPrint("Press any key to continue.", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
 
@@ -84,20 +102,62 @@ namespace Capstone_Project
         public static void DisplayMenuPrompt(string menuName)
         {
             Console.WriteLine();
-            Console.WriteLine($"\tPress any key to return to the {menuName} Menu.");
+            SetColor(ConsoleColor.DarkYellow);
+            Print($"Press any key to return to the {menuName} Menu.");
+            SetForegroundColor();
             Console.ReadKey();
         }
 
         /// <summary>
-        /// display screen header
+        /// *****************************************************************
+        ///             DISPLAY SCREEN HEADER
+        /// *****************************************************************
         /// </summary>
         public static void DisplayScreenHeader(string headerText)
         {
             Console.Clear();
             Console.CursorVisible = false;
+            SetColor(ConsoleColor.DarkMagenta);
             Console.WriteLine();
-            Console.WriteLine("\t" + headerText);
+            Console.WriteLine($"\t{headerText}");
             Console.WriteLine();
+            SetForegroundColor();
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        public static void Print(string prompt)
+        {
+            Console.WriteLine($"\t{prompt}");
+        }
+        public static string MenuChoice(string prompt)
+        {
+            string ret;
+            SetColor(ConsoleColor.DarkYellow);
+            Console.Write($"\t{prompt}");
+            SetColor(ConsoleColor.White);
+            ret = Console.ReadLine();
+            SetForegroundColor();
+            return ret;
+        }
+        public static void PrintColorData(string message, string data)
+        {
+            Console.Write($"\t{message}");
+            SetColor(ConsoleColor.White);
+            Console.Write($"{data}\n");
+            SetForegroundColor();
+        }
+        public static string ReadWrite(string prompt)
+        {
+            string ret;
+            Console.Write($"\t{prompt}");
+            SetColor(ConsoleColor.White);
+            ret = Console.ReadLine();
+            SetForegroundColor();
+            return ret;
         }
     }
 }
