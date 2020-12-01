@@ -9,64 +9,129 @@ namespace Capstone_Project
     class Picture
     {
         /// <summary>
-        /// *****************************************************************
-        /// *           CLASS FOR PRINTING AN IMAGE IN COLOR                *
-        /// *****************************************************************
+        /// *****************************************************************************
+        /// *                             HOUSE IN ASCII ART                            *
+        /// *****************************************************************************
+        /// *                                       /\                                  *
+        /// *                                  /\  //\\                                 *
+        /// *                           /\    //\\///\\\        /\                      *
+        /// *                          //\\  ///\////\\\\  /\  //\\                     *
+        /// *             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \                    *
+        /// *            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \                   *
+        /// *           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       *          *
+        /// *          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \     /|\         *
+        /// *         / ^ ^  ^ \ ^  _\___________________|  |_____^ ^  \   /||o\        *
+        /// *        / ^^  ^ ^ ^\  /______________________________\ ^ ^ \ /|o|||\       *
+        /// *       /  ^  ^^ ^ ^  /________________________________\  ^  /|||||o|\      *
+        /// *      /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\     *
+        /// *     / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |         *
+        /// *    / ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo  *
+        /// *    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo  *
+        /// *                                                                           *
+        /// *****************************************************************************
+        /// </summary>
+
+
+        /// <summary>
+        /// *****************************************************************************
+        /// *                  DISPLAY HOUSE ASCII ART  IN COLOR                        *
+        /// *****************************************************************************
         /// </summary>
         public static void PrintImage()
         {
-            PrintPictureTwo(
+            PrintPicture(
                 @"
                                        /\
                                   /\  //\\
                            /\    //\\///\\\        /\
-                          //\\  ///\////\\\\  /\  //\\");
+                          //\\  ///\////\\\\  /\  //\\",
+                ConsoleColor.White);
 
             PrintPicture(
                 @"
              /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \
-            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \");
+            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \",
+                ConsoleColor.DarkGreen);
 
             PrintPicture(
                 @"
-           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       ", "*");
+           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       ", "*",
+               ConsoleColor.DarkGreen,
+               ConsoleColor.Yellow);
 
             PrintPicture(
-                @"          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ",
+                @"
+          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ",
                 @"____",
-                @"  ^   ^  \     /|\");
+                @"  ^   ^  \     /|\
+",
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkCyan,
+                ConsoleColor.DarkGreen);
 
-            PrintPictureTwo(
+            PrintPicture(
                 @"         / ^ ^  ^ \ ^  ",
                 @"_",
                 @"\",
                 @"___________________|  |_____",
                 @"^ ^  \   /||",
                 @"o",
-                @"\");
+                @"\
+",
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkCyan,
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkCyan,
+                ConsoleColor.DarkGreen,
+                ConsoleColor.Yellow,
+                ConsoleColor.DarkGreen);
 
-            PrintPictureTwo(
-                @"        / ^^  ^ ^ ^\  ", 
-                @"/______________________________\", 
-                @" ^ ^ \ /|", 
-                @"o", 
-                @"|||\");
+            PrintPicture(
+                @"        / ^^  ^ ^ ^\  ",
+                @"/______________________________\",
+                @" ^ ^ \ /|",
+                @"o",
+                @"|||\
+",
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkCyan,
+                ConsoleColor.DarkGreen,
+                ConsoleColor.Yellow,
+                ConsoleColor.DarkGreen);
 
-            PrintPictureTwo(
+            PrintPicture(
                 @"       /  ^  ^^ ^ ^  ",
                 @"/________________________________\",
                 @"  ^  /|||||",
                 @"o",
-                @"|\");
+                @"|\
+",
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkCyan,
+                ConsoleColor.DarkGreen,
+                ConsoleColor.Yellow,
+                ConsoleColor.DarkGreen);
 
             PrintPicture(
                 @"      /^ ^  ^ ^^  ^    ",
-                @"|", @"|___|___|",
+                @"|",
+                @"|___|___|",
                 @"||||||||||",
                 @"|___|__|",
                 @"||      ",
-                @"/||", @"o",
-                @"||||||\");
+                @"/||",
+                @"o",
+                @"||||||\
+",
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkGray,
+                ConsoleColor.Blue,
+                ConsoleColor.DarkGray,
+                ConsoleColor.Blue,
+                ConsoleColor.DarkGray,
+                ConsoleColor.DarkGreen,
+                ConsoleColor.Yellow,
+                ConsoleColor.DarkGreen);
 
             PrintPicture(
                 @"     / ^   ^   ^    ^  ",
@@ -75,7 +140,15 @@ namespace Capstone_Project
                 @"||||||||||",
                 @"|___|__|",
                 @"||          ",
-                @"| |");
+                @"| |
+",
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkGray,
+                ConsoleColor.Blue,
+                ConsoleColor.DarkGray,
+                ConsoleColor.Blue,
+                ConsoleColor.DarkGray,
+                ConsoleColor.DarkYellow);
 
 
             PrintPicture(
@@ -83,153 +156,60 @@ namespace Capstone_Project
                 @"||||||||||||||||||||||||||||||",
                 @"oooooooooo",
                 @"| |",
-                @"ooooooo");
+                @"ooooooo
+",
+                ConsoleColor.DarkGreen,
+                ConsoleColor.DarkGray,
+                ConsoleColor.White,
+                ConsoleColor.DarkYellow,
+                ConsoleColor.White);
 
-            PrintPictureTwo(
-                @"    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-        }
-        static void PrintPicture(string image)
-        {
-            DGreen();
-            Console.Write(image);
-        }
-        static void PrintPicture(string imageOne, string imageTwo)
-        {
-            DGreen();
-            Console.Write(imageOne);
-            Yellow();
-            Console.WriteLine(imageTwo);
-        }
-        static void PrintPicture(string imageOne, string imageTwo, string imageThree)
-        {
-            DGreen();
-            Console.Write(imageOne);
-            DCyan();
-            Console.Write(imageTwo);
-            DGreen();
-            Console.WriteLine(imageThree);
-        }
-        static void PrintPicture(string imageOne, string imageTwo, string imageThree, string imageFour, string imageFive)
-        {
-            DGreen();
-            Console.Write(imageOne);
-            DGray();
-            Console.Write(imageTwo);
-            White();
-            Console.Write(imageThree);
-            DYellow();
-            Console.Write(imageFour);
-            White();
-            Console.WriteLine(imageFive);
-        }
-        static void PrintPicture(string imageOne, string imageTwo, string imageThree, 
-                                string imageFour, string imageFive, string imageSix, 
-                                string imageSeven)
-        {
-            DGreen();
-            Console.Write(imageOne);
-            DGray();
-            Console.Write(imageTwo);
-            Blue();
-            Console.Write(imageThree);
-            DGray();
-            Console.Write(imageFour);
-            Blue();
-            Console.Write(imageFive);
-            DGray();
-            Console.Write(imageSix);
-            DYellow();
-            Console.WriteLine(imageSeven);
-        }
-        static void PrintPicture(string imageOne, string imageTwo, string imageThree, 
-                                string imageFour, string imageFive, string imageSix, 
-                                string imageSeven, string imageEight, string imageNine)
-        {
-            DGreen();
-            Console.Write(imageOne);
-            DGray();
-            Console.Write(imageTwo);
-            Blue();
-            Console.Write(imageThree);
-            DGray();
-            Console.Write(imageFour);
-            Blue();
-            Console.Write(imageFive);
-            DGray();
-            Console.Write(imageSix);
-            DGreen();
-            Console.Write(imageSeven);
-            Yellow();
-            Console.Write(imageEight);
-            DGreen();
-            Console.WriteLine(imageNine);
-        }
-        static void PrintPictureTwo(string imageOne, string imageTwo, string imageThree, 
-                                    string imageFour, string imageFive)
-        {
-            DGreen();
-            Console.Write(imageOne);
-            DCyan();
-            Console.Write(imageTwo);
-            DGreen();
-            Console.Write(imageThree);
-            Yellow();
-            Console.Write(imageFour);
-            DGreen();
-            Console.WriteLine(imageFive);
-        }
-        static void PrintPictureTwo(string imageOne, string imageTwo, string imageThree, 
-                                    string imageFour, string imageFive, string imageSix, 
-                                    string imageSeven)
-        {
-            DGreen();
-            Console.Write(imageOne);
-            DCyan();
-            Console.Write(imageTwo);
-            DGreen();
-            Console.Write(imageThree);
-            DCyan();
-            Console.Write(imageFour);
-            DGreen();
-            Console.Write(imageFive);
-            Yellow();
-            Console.Write(imageSix);
-            DGreen();
-            Console.WriteLine(imageSeven);
+            PrintPicture(
+                @"    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+                ConsoleColor.White);
         }
 
-        static void PrintPictureTwo(string image)
+
+        /// <summary>
+        /// *****************************************************************************
+        /// *                  METHODS FOR COLORING THE IMAGE                           *
+        /// *****************************************************************************
+        /// </summary>
+
+        public static void getImages(ConsoleColor[] colors, string[] images)
         {
-            White();
-            Console.Write(image);
+            int i = 0;
+            foreach (string image in images)
+            {
+
+                SetColor(colors[i]);
+                Console.Write(image);
+                i++;
+            }
         }
-        static void DGreen()
+
+        public static void PrintPicture(params object[] arguments)
         {
-            Theme.SetColor(ConsoleColor.DarkGreen);
+            List<ConsoleColor> colors = new List<ConsoleColor>();
+            List<string> images = new List<string>();
+            foreach (object argument in arguments)
+            {
+                if (argument.GetType() == typeof(string))
+                {
+                    images.Add(argument.ToString());
+                }
+                else if (argument.GetType() == typeof(ConsoleColor))
+                {
+                    colors.Add((ConsoleColor)Enum.Parse(typeof(ConsoleColor), argument.ToString()));
+                }
+            }
+
+            getImages(colors.ToArray(), images.ToArray());
         }
-        static void DCyan()
+
+        static void SetColor(ConsoleColor color)
         {
-            Theme.SetColor(ConsoleColor.DarkCyan);
-        }
-        static void Blue()
-        {
-            Theme.SetColor(ConsoleColor.Blue);
-        }
-        static void Yellow()
-        {
-            Theme.SetColor(ConsoleColor.Yellow);
-        }
-        static void DYellow()
-        {
-            Theme.SetColor(ConsoleColor.DarkYellow);
-        }
-        static void White()
-        {
-            Theme.SetColor(ConsoleColor.White);
-        }
-        static void DGray()
-        {
-            Theme.SetColor(ConsoleColor.DarkGray);
+            Console.ForegroundColor = color;
         }
     }
 }
