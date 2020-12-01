@@ -25,7 +25,7 @@ namespace Capstone_Project
         /// </summary>
         public static void SetForegroundColor()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            SetColor(ConsoleColor.DarkCyan);
         }
         /// <summary>
         /// *****************************************************************
@@ -44,7 +44,8 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="message"></param>
         /// <param name="color"></param>
-        public static void ColorMenu(string menuLetter, string message)
+        public static void ColorMenu(string menuLetter,
+                                     string message)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write($"\t{menuLetter}");
@@ -58,7 +59,8 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="message"></param>
         /// <param name="color"></param>
-        public static void ColorPrint(string message, ConsoleColor color)
+        public static void ColorPrint(string message,
+                                      ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine($"\t{message}");
@@ -71,7 +73,8 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="message"></param>
         /// <param name="color"></param>
-        public static void ValidateColorPrint(string message, ConsoleColor color)
+        public static void ValidateColorPrint(string message,
+                                              ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write($"\t{message}");
@@ -88,11 +91,24 @@ namespace Capstone_Project
             Console.CursorVisible = false;
             Console.Clear();
             Console.WriteLine();
+
+            //
+            // Print Welcome Header
+            //
             ColorPrint("\t\tThe Essential Home Application", ConsoleColor.DarkMagenta);
             Console.WriteLine();
+
+            //
+            // Print welcome Image
+            //
             Picture.PrintImage();
+            
             Console.WriteLine();
             Console.WriteLine();
+            
+            //
+            // Prompt user to continue
+            //
             DisplayContinuePrompt();
         }
 
@@ -123,6 +139,9 @@ namespace Capstone_Project
         public static void DisplayContinuePrompt()
         {
             Console.WriteLine();
+            //
+            // Continue prompt in Dark Yellow
+            //
             ColorPrint("Press any key to continue.", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
@@ -135,6 +154,10 @@ namespace Capstone_Project
         public static void DisplayMenuPrompt(string menuName)
         {
             Console.WriteLine();
+            
+            // 
+            // Menu Prompt in Dark Yellow
+            //
             SetColor(ConsoleColor.DarkYellow);
             Print($"Press any key to return to the {menuName} Menu.");
             SetForegroundColor();
@@ -149,10 +172,23 @@ namespace Capstone_Project
         public static void DisplayScreenHeader(string headerText)
         {
             Console.Clear();
+            
+            //
+            // Set Cursor invisible
+            //
             Console.CursorVisible = false;
+
+            //
+            // Set color for Header text in Dark Magenta
+            //
             SetColor(ConsoleColor.DarkMagenta);
+
             Console.WriteLine();
-            Console.WriteLine($"\t{headerText}");
+
+            //
+            // Display Header
+            //
+            Print($"{headerText}");
             Console.WriteLine();
             SetForegroundColor();
         }
@@ -170,7 +206,7 @@ namespace Capstone_Project
         {
             string ret;
             SetColor(ConsoleColor.DarkYellow);
-            Console.Write($"\t{prompt}");
+            Print($"{prompt}");
             SetColor(ConsoleColor.White);
             ret = Console.ReadLine();
             SetForegroundColor();
@@ -183,7 +219,8 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="message"></param>
         /// <param name="data"></param>
-        public static void PrintColorData(string message, string data)
+        public static void PrintColorData(string message,
+                                          string data)
         {
             Console.Write($"\t{message}");
             SetColor(ConsoleColor.White);
@@ -216,7 +253,11 @@ namespace Capstone_Project
         /// <param name="messageTwo"></param>
         /// <param name="dataTwo"></param>
         /// <param name="messageThree"></param>
-        public static void RangeMessage(string message, string dataOne, string messageTwo, string dataTwo, string messageThree)
+        public static void RangeMessage(string message,
+                                        string dataOne,
+                                        string messageTwo,
+                                        string dataTwo,
+                                        string messageThree)
         {
             SetColor(ConsoleColor.Red);
             Console.Write($"\t{message}");
@@ -236,7 +277,8 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="dataOne"></param>
         /// <param name="dataTwo"></param>
-        public static void ColorTable(string dataOne, string dataTwo)
+        public static void ColorTable(string dataOne,
+                                      string dataTwo)
         {
             SetColor(ConsoleColor.Cyan);
             Console.Write(dataOne);

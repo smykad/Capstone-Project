@@ -33,7 +33,9 @@ namespace Capstone_Project
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        public static int ReadInteger(string prompt, int min, int max)
+        public static int ReadInteger(string prompt,
+                                      int min,
+                                      int max)
         {
             Console.Write($"\t{prompt}");
             Theme.SetColor(ConsoleColor.White);
@@ -67,7 +69,9 @@ namespace Capstone_Project
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        public static double ReadDouble(string prompt, int min, int max)
+        public static double ReadDouble(string prompt,
+                                        int min,
+                                        int max)
         {
 
             Console.Write(prompt);
@@ -133,7 +137,9 @@ namespace Capstone_Project
         /// <param name="max"></param>
         /// <returns></returns>
 
-        static int IsValidThresholdAndRange(int thresholdValue, int min, int max)
+        static int IsValidThresholdAndRange(int thresholdValue,
+                                            int min,
+                                            int max)
         {
             bool isValidThreshold = false;
             while (!isValidThreshold)
@@ -164,7 +170,9 @@ namespace Capstone_Project
         /// <param name="max"></param>
         /// <returns></returns>
 
-        static double IsValidThresholdAndRange(double thresholdValue, int min, int max)
+        static double IsValidThresholdAndRange(double thresholdValue,
+                                               int min,
+                                               int max)
         {
             bool isValidThreshold = false;
             while (!isValidThreshold)

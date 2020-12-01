@@ -16,7 +16,8 @@ namespace Capstone_Project
         /// <param name="ch"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        static char CaesarCipher(char ch, int key)
+        static char CaesarCipher(char ch, 
+                                 int key)
         {
             if (!char.IsLetter(ch))
             {
@@ -38,7 +39,8 @@ namespace Capstone_Project
         /// <param name="key"></param>
         /// <returns></returns>
 
-        public static string Encrypt(string input, int key)
+        public static string Encrypt(string input, 
+                                     int key)
         {
             string output = string.Empty;
 
@@ -55,7 +57,8 @@ namespace Capstone_Project
         /// <param name="input"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string Decrypt(string input, int key)
+        public static string Decrypt(string input, 
+                                     int key)
         {
             return Encrypt(input, 26 - key);
         }

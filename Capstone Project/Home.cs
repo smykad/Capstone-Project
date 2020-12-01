@@ -60,7 +60,8 @@ namespace Capstone_Project
                         break;
 
                     case "c":
-                        DisplayGetRoomNameAndSizeData(numberOfRooms, out roomSizes, out roomNames, userName, out homeName);
+                        DisplayGetRoomNameAndSizeData(numberOfRooms, out roomSizes, 
+                                                      out roomNames, userName, out homeName);
                         break;
 
                     case "d":
@@ -144,7 +145,10 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="roomSizes"></param>
         /// <param name="roomNames"></param>
-        static void DisplayRoomSizeNameData(double[] roomSizes, string[] roomNames, string homeName, string userName)
+        static void DisplayRoomSizeNameData(double[] roomSizes,
+                                            string[] roomNames,
+                                            string homeName,
+                                            string userName)
         {
             //
             // Display Header
@@ -186,7 +190,11 @@ namespace Capstone_Project
         /// <param name="numberOfRooms"></param>
         /// <param name="sizes"></param>
         /// <param name="names"></param>
-        static void DisplayGetRoomNameAndSizeData(int numberOfRooms, out double[] sizes, out string[] names, string userName, out string homeName)
+        static void DisplayGetRoomNameAndSizeData(int numberOfRooms,
+                                                  out double[] sizes,
+                                                  out string[] names,
+                                                  string userName,
+                                                  out string homeName)
         {
             //
             // Initialize variables
@@ -303,7 +311,8 @@ namespace Capstone_Project
         /// ******************************************************
         /// </summary>
         /// <returns></returns>
-        static int DisplayGetNumberOfRoomsData(string userName, string homeName)
+        static int DisplayGetNumberOfRoomsData(string userName, 
+                                               string homeName)
         {
             //
             // Initialize variables

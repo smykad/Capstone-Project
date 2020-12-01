@@ -48,23 +48,19 @@ namespace Capstone_Project
                 ConsoleColor.White);
 
             PrintPicture(
-                @"
-             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \
+                @"             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \
             / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \",
                 ConsoleColor.DarkGreen);
 
             PrintPicture(
-                @"
-           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       ", "*",
+                @"           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       ", "*",
                ConsoleColor.DarkGreen,
                ConsoleColor.Yellow);
 
             PrintPicture(
-                @"
-          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ",
+                @"          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ",
                 @"____",
-                @"  ^   ^  \     /|\
-",
+                @"  ^   ^  \     /|\",
                 ConsoleColor.DarkGreen,
                 ConsoleColor.DarkCyan,
                 ConsoleColor.DarkGreen);
@@ -76,8 +72,7 @@ namespace Capstone_Project
                 @"___________________|  |_____",
                 @"^ ^  \   /||",
                 @"o",
-                @"\
-",
+                @"\",
                 ConsoleColor.DarkGreen,
                 ConsoleColor.DarkCyan,
                 ConsoleColor.DarkGreen,
@@ -91,8 +86,7 @@ namespace Capstone_Project
                 @"/______________________________\",
                 @" ^ ^ \ /|",
                 @"o",
-                @"|||\
-",
+                @"|||\",
                 ConsoleColor.DarkGreen,
                 ConsoleColor.DarkCyan,
                 ConsoleColor.DarkGreen,
@@ -104,8 +98,7 @@ namespace Capstone_Project
                 @"/________________________________\",
                 @"  ^  /|||||",
                 @"o",
-                @"|\
-",
+                @"|\",
                 ConsoleColor.DarkGreen,
                 ConsoleColor.DarkCyan,
                 ConsoleColor.DarkGreen,
@@ -121,8 +114,7 @@ namespace Capstone_Project
                 @"||      ",
                 @"/||",
                 @"o",
-                @"||||||\
-",
+                @"||||||\",
                 ConsoleColor.DarkGreen,
                 ConsoleColor.DarkGray,
                 ConsoleColor.Blue,
@@ -140,8 +132,7 @@ namespace Capstone_Project
                 @"||||||||||",
                 @"|___|__|",
                 @"||          ",
-                @"| |
-",
+                @"| |",
                 ConsoleColor.DarkGreen,
                 ConsoleColor.DarkGray,
                 ConsoleColor.Blue,
@@ -156,8 +147,7 @@ namespace Capstone_Project
                 @"||||||||||||||||||||||||||||||",
                 @"oooooooooo",
                 @"| |",
-                @"ooooooo
-",
+                @"ooooooo",
                 ConsoleColor.DarkGreen,
                 ConsoleColor.DarkGray,
                 ConsoleColor.White,
@@ -175,18 +165,6 @@ namespace Capstone_Project
         /// *                  METHODS FOR COLORING THE IMAGE                           *
         /// *****************************************************************************
         /// </summary>
-
-        public static void getImages(ConsoleColor[] colors, string[] images)
-        {
-            int i = 0;
-            foreach (string image in images)
-            {
-
-                SetColor(colors[i]);
-                Console.Write(image);
-                i++;
-            }
-        }
 
         public static void PrintPicture(params object[] arguments)
         {
@@ -207,6 +185,21 @@ namespace Capstone_Project
             getImages(colors.ToArray(), images.ToArray());
         }
 
+        static void getImages(ConsoleColor[] colors,
+                                     string[] images)
+        {
+            int i = 0;
+            foreach (string image in images)
+            {
+                SetColor(colors[i]);
+                Console.Write(image);
+                i++;
+                if (i == images.Length)
+                {
+                    Console.WriteLine();
+                }
+            }
+        }
         static void SetColor(ConsoleColor color)
         {
             Console.ForegroundColor = color;

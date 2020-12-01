@@ -138,7 +138,8 @@ namespace Capstone_Project
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="password"></param>
-        static void WriteLoginInfoData(string userName, string password)
+        static void WriteLoginInfoData(string userName,
+                                       string password)
         {
             string dataPath = @"Data/Logins.txt";
             string loginInfoText = userName + "," + password + "\n";
@@ -228,7 +229,8 @@ namespace Capstone_Project
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        static bool isValidLoginInfo(string userName, string password)
+        static bool isValidLoginInfo(string userName,
+                                     string password)
         {
 
             //
