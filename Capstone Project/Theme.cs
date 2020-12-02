@@ -206,7 +206,7 @@ namespace Capstone_Project
         {
             string ret;
             SetColor(ConsoleColor.DarkYellow);
-            Print($"{prompt}");
+            Console.Write($"{prompt}");
             SetColor(ConsoleColor.White);
             ret = Console.ReadLine();
             SetForegroundColor();
