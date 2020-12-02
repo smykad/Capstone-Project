@@ -76,6 +76,7 @@ namespace Capstone_Project
                     default:
                         Console.WriteLine();
                         Theme.ColorPrint("Please enter a letter for the menu choice.", ConsoleColor.Red);
+                        Console.Beep(200, 500);
                         Theme.DisplayContinuePrompt();
                         break;
                 }

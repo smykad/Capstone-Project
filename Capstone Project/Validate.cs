@@ -99,6 +99,7 @@ namespace Capstone_Project
                 {
                     Console.WriteLine();
                     Theme.ValidateColorPrint("Please enter an integer value: ", ConsoleColor.Red);
+                    Console.Beep(200, 500);
                     IsValidInt = false;
                 }
             }
@@ -120,6 +121,7 @@ namespace Capstone_Project
                 if (!IsValidDouble)
                 {
                     Console.WriteLine();
+                    Console.Beep(200, 500);
                     Theme.ValidateColorPrint("Please enter a numeric value: ", ConsoleColor.Red);
                     
                     IsValidDouble = false;
@@ -148,7 +150,9 @@ namespace Capstone_Project
                 {
                     Console.WriteLine();
 
+                    Console.Beep(200, 500);
                     Theme.RangeMessage("Please enter a threshold value between", $" {min} ", "and", $" {max}",": ");
+                    
                     Theme.SetColor(ConsoleColor.White);
                     thresholdValue = IsValidInt();
                     Theme.SetForegroundColor();
@@ -180,6 +184,7 @@ namespace Capstone_Project
                 if (thresholdValue > max || thresholdValue < min)
                 {
                     Console.WriteLine();
+                    Console.Beep(200, 500);
                     Theme.RangeMessage("Please enter a threshold value between", $"{min}", "and", $"{max}",": ");
                     Theme.SetColor(ConsoleColor.White);
                     thresholdValue = IsValidDouble();
@@ -244,6 +249,7 @@ namespace Capstone_Project
                     default:
                         Theme.SetForegroundColor();
                         Console.WriteLine();
+                        Console.Beep(200, 500);
                         Theme.ValidateColorPrint("Invalid input. Enter valid room name: ", ConsoleColor.Red);
 
                         break;
