@@ -8,7 +8,7 @@ This project is for CIT 110, it calculates the square footage of a house with an
 
 ## Getting Started
 
-# Installation
+### Installation
 
 ```
 https://github.com/smykad/Capstone-Project
