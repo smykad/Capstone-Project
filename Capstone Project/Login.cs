@@ -125,8 +125,9 @@ namespace Capstone_Project
             Theme.PrintColorData("Your key: ", $"{key}");
             Theme.PrintColorData("Encrypted Password: ", encryptedPassword);
             Console.WriteLine();
+            Console.Beep(200, 500);
             Theme.ColorPrint("Be sure to remember your key, you won't be able to recover or reset it!", ConsoleColor.Red);
-
+            
             //
             // Menu Prompt
             //
@@ -263,7 +264,9 @@ namespace Capstone_Project
             if (!validUser)
             {
                 Console.WriteLine();
+                Console.Beep(200, 500);
                 Theme.ColorPrint("Wrong login credentials", ConsoleColor.Red);
+                
             }
             return validUser;
         }
