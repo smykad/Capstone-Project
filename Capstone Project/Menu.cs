@@ -126,8 +126,23 @@ namespace Capstone_Project
         /// </summary>
         static void DisplayApplicationInformation()
         {
-            Theme.DisplayScreenHeader("Application Information");
-            Theme.Print("Module Under Construction");
+            Theme.DisplayScreenHeader("Capstone Project CIT 110");
+            Theme.ColorPrint("*************************************************************************", ConsoleColor.DarkMagenta);
+            Theme.ColorPrint("This application was developed using Visual Studio 2019 Community Edition", ConsoleColor.Cyan);
+            Console.WriteLine();
+            Theme.ColorTable("\tCreated: ", "11/19/2020\n");
+            Console.WriteLine();
+            Theme.ColorTable("\tRevised: ","12/2/2020\n");
+            Console.WriteLine();
+            Theme.ColorTable("\tApplicationg written by: ", "Doug Smyka\n\n");
+            Console.WriteLine();
+            Theme.ColorPrint("With the assistance of", ConsoleColor.Yellow);
+            Console.WriteLine();
+            Theme.ColorPrint("Wyatt J. Miller", ConsoleColor.White);
+            Theme.ColorPrint("Noah Osterhout", ConsoleColor.White);
+            Theme.ColorPrint("Peter Steele", ConsoleColor.White);
+            Console.WriteLine();
+            Theme.ColorPrint("*************************************************************************", ConsoleColor.DarkMagenta);
             Theme.DisplayMenuPrompt("Main Menu");
         }
     }

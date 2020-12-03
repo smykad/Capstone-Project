@@ -102,7 +102,6 @@ namespace Capstone_Project
             // Print welcome Image
             //
             Picture.PrintImage();
-            
             Console.WriteLine();
             Console.WriteLine();
             
@@ -124,8 +123,15 @@ namespace Capstone_Project
 
             Console.Clear();
             Console.WriteLine();
-            Print("I hope you enjoyed using my application");
+            Picture.PrintClosing();
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            ColorPrint("And a special thanks goes to", ConsoleColor.Cyan);
+            Console.WriteLine();
+            ColorPrint("Wyatt J. Miller", ConsoleColor.White);
+            ColorPrint("Noah Osterhout", ConsoleColor.White);
+            ColorPrint("Peter Steele", ConsoleColor.White);
 
             DisplayContinuePrompt();
         }
@@ -206,7 +212,7 @@ namespace Capstone_Project
         {
             string ret;
             SetColor(ConsoleColor.DarkYellow);
-            Console.Write($"{prompt}");
+            Console.Write($"\t{prompt}");
             SetColor(ConsoleColor.White);
             ret = Console.ReadLine();
             SetForegroundColor();

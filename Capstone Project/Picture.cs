@@ -31,6 +31,103 @@ namespace Capstone_Project
         /// *****************************************************************************
         /// </summary>
 
+        /// <summary>
+        /// *****************************************************************************
+        /// *                           CLOSING IN ASCII ART                            *
+        /// *****************************************************************************
+        /// *                             ''~``                                         * 
+        /// *                            ( o o )                                        *
+        /// *    +------------------.oooO--(_)--Oooo.------------------+                *
+        /// *    |      Thanks for using my application                |                *
+        /// *    |                    .oooO                            |                *
+        /// *    |                    (   )   Oooo.    -Doug Smyka     |                *
+        /// *    +---------------------\ (----(   )--------------------+                *
+        /// *                           \_)    ) /                                      *
+        /// *                                 (_/                                       *
+        /// *****************************************************************************
+        ///</summary>
+
+        public static void PrintClosing()
+        {
+            PrintPicture(
+                @"                                   ''~``",
+                ConsoleColor.Yellow);
+            PrintPicture(
+                @"                                  (",
+                @" o o ",
+                @") ",
+
+
+                ConsoleColor.DarkYellow, 
+                ConsoleColor.Blue, 
+                ConsoleColor.DarkYellow);
+            PrintPicture(
+                @"          +",
+                @"------------------",
+                @".oooO",
+                @"--",
+                @"(_)",
+                @"--",
+                @"Oooo.",
+                @"------------------",
+                @"+",
+                ConsoleColor.Cyan,
+                ConsoleColor.Green,
+                ConsoleColor.DarkYellow,
+                ConsoleColor.Green,
+                ConsoleColor.DarkYellow, 
+                ConsoleColor.Green,
+                ConsoleColor.DarkYellow,
+                ConsoleColor.Green,
+                ConsoleColor.Cyan);
+            PrintPicture(
+                @"          |      ",
+                @"Thanks for using my application",
+                @"                |",
+                ConsoleColor.Green,
+                ConsoleColor.Cyan,
+                ConsoleColor.Green);
+            PrintPicture(
+                @"          |                    ",
+                @".oooO                            ",
+                @"|",
+                ConsoleColor.Green,
+                ConsoleColor.DarkYellow,
+                ConsoleColor.Green);
+            PrintPicture(
+                @"          |                    ",
+                @"(   )   Oooo.    ",
+                @"-Doug Smyka     ",
+                @"|",
+                ConsoleColor.Green,
+                ConsoleColor.DarkYellow,
+                ConsoleColor.White,
+                ConsoleColor.Green);
+            PrintPicture(
+                @"          +",
+                @"---------------------",
+                @"\ (",
+                @"----",
+                @"(   )",
+                @"--------------------",
+                @"+",
+                ConsoleColor.Cyan,
+                ConsoleColor.Green,
+                ConsoleColor.DarkYellow,
+                ConsoleColor.Green,
+                ConsoleColor.DarkYellow,
+                ConsoleColor.Green,
+                ConsoleColor.Cyan);
+            PrintPicture(
+                @"                                 \_)    ) /",
+                ConsoleColor.DarkYellow);
+            PrintPicture(
+                @"                                       (_/",
+                ConsoleColor.DarkYellow);
+
+
+        }
+       
 
         /// <summary>
         /// *****************************************************************************
