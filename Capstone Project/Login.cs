@@ -9,12 +9,19 @@ namespace Capstone_Project
 {
     class Login
     {
+        #region LOGIN MENU
+
+
         /// <summary>
         /// *****************************************************************
         /// *                      LOGIN MENU                               *
         /// *****************************************************************
+        /// *        L: Log In                                              *
+        /// *        A: Register                                            *
+        /// *        C: Recover Password                                    *
+        /// *                                                               *
+        /// *****************************************************************
         /// </summary>
-        /// <returns></returns>
         public static void DisplayLoginMenuScreen()
         {
             Console.CursorVisible = true;
@@ -27,6 +34,9 @@ namespace Capstone_Project
 
             do
             {
+                //
+                // Display Header
+                //
                 Theme.DisplayScreenHeader("Login Menu");
 
                 //
@@ -67,9 +77,87 @@ namespace Capstone_Project
             } while (!quitMenu);
 
         }
+        #endregion
+
+        #region LOGIN MENU OPTIONS
         /// <summary>
         /// ******************************************************
-        ///             REGISTER USER            
+        ///             L. DISPLAY LOGIN
+        /// ******************************************************
+        /// </summary>
+        static void DisplayLogin()
+        {
+            //
+            // Initialize Variables
+            //
+            string userName;
+            string password;
+            string encryptedPassword;
+            int key;
+            bool validLogin;
+
+
+            do
+            {
+                //
+                // Display Header
+                //
+                Theme.DisplayScreenHeader("Login");
+
+                Console.WriteLine();
+
+                //
+                // Prompt for username
+                //
+                userName = Theme.ReadWrite("Enter your username: ");
+
+                //
+                // Prompt for password
+                //
+                password = Theme.ReadWrite("Enter password: ");
+
+                //
+                // Prompt for key
+                //
+                key = Validate.ReadInteger("Enter Key: ", 1, 26);
+
+                //
+                // Encrypt Password
+                //
+                encryptedPassword = Cipher.Encrypt(password, key);
+
+                //
+                // Validate login info
+                //
+                validLogin = isValidLoginInfo(userName, encryptedPassword);
+
+
+                Console.WriteLine();
+                if (validLogin)
+                {
+                    //
+                    // User successfuly logs in, proceed to application
+                    //
+                    Theme.Print($"You are now logged in {userName}");
+                    Theme.DisplayContinuePrompt();
+                    Menu.DisplayMenuScreen(userName);
+                }
+                else
+                {
+                    //
+                    // Invalid login credentials
+                    // Send back to login menu
+                    //
+                    Theme.DisplayMenuPrompt("Login Menu");
+                    DisplayLoginMenuScreen();
+                }
+
+            } while (!validLogin);
+
+        }
+        /// <summary>
+        /// ******************************************************
+        ///             A. REGISTER USER            
         /// ******************************************************
         /// </summary>
         static void DisplayRegisterUser()
@@ -135,94 +223,78 @@ namespace Capstone_Project
         }
         /// <summary>
         /// ******************************************************
-        ///             WRITE LOGIN INFO DATA
+        ///             B. RECOVER PASSWORD
         /// ******************************************************
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        static void WriteLoginInfoData(string userName,
-                                       string password)
-        {
-            string dataPath = @"Data/Logins.txt";
-            string loginInfoText = userName + "," + password + "\n";
-
-            File.AppendAllText(dataPath, loginInfoText);
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             DISPLAY LOGIN
-        /// ******************************************************
-        /// </summary>
-        static void DisplayLogin()
+        static void RecoverPassword()
         {
             //
-            // Initialize Variables
+            // Initialize variables
             //
-            string userName;
-            string password;
-            string encryptedPassword;
             int key;
-            bool validLogin;
+            string userName;
+            string encryptedPassword;
+            string password;
+            string dataPath = @"Data\Logins.txt";
+            string[] loginInfoArray;
+            (string userName, string password) loginInfoTuple;
 
+            //
+            // Display Header
+            //
+            Theme.DisplayScreenHeader("Password Recovery");
 
-            do
+            //
+            // Prompt user for username
+            //
+            userName = Theme.ReadWrite("Enter username: ");
+
+            //
+            // Prompt user for key
+            //
+            key = Validate.ReadInteger("Enter Key: ", 1, 26);
+
+            //
+            // Read File to retriave password
+            //
+            loginInfoArray = File.ReadAllLines(dataPath);
+            foreach (string loginInfoText in loginInfoArray)
             {
-                //
-                // Display Header
-                //
-                Theme.DisplayScreenHeader("Login");
-
-                Console.WriteLine();
-
-                //
-                // Prompt for username
-                //
-                userName = Theme.ReadWrite("Enter your username: ");
-
-                //
-                // Prompt for password
-                //
-                password = Theme.ReadWrite("Enter password: ");
-                
-                //
-                // Prompt for key
-                //
-                key = Validate.ReadInteger("Enter Key: ");
-                
-                //
-                // Encrypt Password
-                //
-                encryptedPassword = Cipher.Encrypt(password, key);
-
-                //
-                // Validate login info
-                //
-                validLogin = isValidLoginInfo(userName, encryptedPassword);
-
-
-                Console.WriteLine();
-                if (validLogin)
+                if (loginInfoText.Contains(userName + ","))
                 {
-                    //
-                    // User successfuly logs in, proceed to application
-                    //
-                    Theme.Print($"You are now logged in {userName}");
-                    Theme.DisplayContinuePrompt();
-                    Menu.DisplayMenuScreen(userName);
-                }
-                else
-                {
-                    //
-                    // Invalid login credentials
-                    // Send back to login menu
-                    //
-                    Theme.DisplayMenuPrompt("Login Menu");
-                    DisplayLoginMenuScreen();
-                }
+                    loginInfoArray = loginInfoText.Split(',');
 
-            } while (!validLogin);
+                    loginInfoTuple.userName = loginInfoArray[0];
+                    loginInfoTuple.password = loginInfoArray[1];
+                    encryptedPassword = loginInfoArray[1];
 
+                    //
+                    // Echo back encrypted password
+                    //
+                    Theme.Print($"Encrypted Password: {encryptedPassword}");
+
+                    //
+                    // Echo back decrypted Password
+                    //
+                    password = Cipher.Decrypt(encryptedPassword, key);
+                    Theme.Print($"Password: {password}");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Theme.ColorPrint("If your password looks incorrect you provided the " +
+                        "wrong key, come back and try again!", ConsoleColor.Red);
+                }
+            }
+
+            //
+            // Menu prompt
+            //
+            Theme.DisplayMenuPrompt("Login Menu");
         }
+        #endregion
+
+        #region VALIDATION
+
+
         /// <summary>
         /// ******************************************************
         ///             VALIDATE LOGIN CREDENTIALS
@@ -271,6 +343,64 @@ namespace Capstone_Project
             return validUser;
         }
 
+        /// <summary>
+        /// ******************************************************
+        ///             GET USER NAME AND SEE IF IT'S TAKEN
+        /// ******************************************************
+        /// </summary>
+        /// <returns></returns>
+        static string GetUserName()
+        {
+            bool validUserName;
+            string userName;
+            do
+            {
+                userName = Theme.ReadWrite("Enter user name: ");
+                validUserName = isValidUserName(userName);
+
+            } while (validUserName);
+
+            return userName;
+        }
+
+        /// <summary>
+        /// ******************************************************
+        ///             CHECK IF USERNAME EXISTS ALREADY
+        /// ******************************************************
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        static bool isValidUserName(string userName)
+        {
+            string dataPath = @"Data/UserNames.txt";
+            bool validUserName = File.ReadLines(dataPath).Contains(userName);
+            if (validUserName)
+            {
+                Console.WriteLine();
+                Theme.ColorPrint($"User name already taken.", ConsoleColor.Red);
+                Console.Beep(200, 500);
+                Console.WriteLine();
+            }
+            return validUserName;
+        }
+        #endregion
+
+        #region SYSTEM IO
+        /// <summary>
+        /// ******************************************************
+        ///             WRITE LOGIN INFO DATA
+        /// ******************************************************
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        static void WriteLoginInfoData(string userName,
+                                       string password)
+        {
+            string dataPath = @"Data/Logins.txt";
+            string loginInfoText = userName + "," + password + "\n";
+
+            File.AppendAllText(dataPath, loginInfoText);
+        }
         /// <summary>
         /// ******************************************************
         ///             READ LOGIN INFO DATA
@@ -324,153 +454,6 @@ namespace Capstone_Project
 
             File.AppendAllText(dataPath, userNames);
         }
-        /// <summary>
-        /// ******************************************************
-        ///             GET USER NAME AND SEE IF IT'S TAKEN
-        /// ******************************************************
-        /// </summary>
-        /// <returns></returns>
-        static string GetUserName()
-        {
-            bool validUserName;
-            string userName;
-            do
-            {
-                userName = Theme.ReadWrite("Enter user name: ");
-                validUserName = isValidUserName(userName);
-
-            } while (validUserName);
-
-            return userName;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             CHECK IF USERNAME EXISTS ALREADY
-        /// ******************************************************
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <returns></returns>
-        static bool isValidUserName(string userName)
-        {
-            string dataPath = @"Data/UserNames.txt";
-            bool validUserName = File.ReadLines(dataPath).Contains(userName);
-            if (validUserName)
-            {
-                Theme.ColorPrint($"User name already taken.", ConsoleColor.Red);
-            }
-            return validUserName;
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             DISPLAY USERNAMES AND ENCRYPTED PASSWORDS
-        /// ******************************************************
-        /// </summary>
-        static void TableofUserNames()
-        {
-            //
-            // Initialize variables
-            //
-            string dataPath = @"Data\Logins.txt";
-            string[] loginInfoArray;
-            (string userName, string password) loginInfoTuple;
-
-            //
-            // Read File
-            //
-            loginInfoArray = File.ReadAllLines(dataPath);
-
-            //
-            // Display Data in a Table
-            //
-            Console.WriteLine(string.Format($"\t{"User Name",10} \t {"Password",20}"));
-            Console.WriteLine();
-            foreach (string loginInfoText in loginInfoArray)
-            {
-                loginInfoArray = loginInfoText.Split(',');
-
-                Console.WriteLine(string.Format($"\t{ loginInfoTuple.userName = loginInfoArray[0],10} \t {loginInfoTuple.password = loginInfoArray[1],20}"));
-            }
-
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             RECOVER PASSWORD
-        /// ******************************************************
-        /// </summary>
-        static void RecoverPassword()
-        {
-            //
-            // Initialize variables
-            //
-            int key;
-            string userName;
-            string encryptedPassword;
-            string password;
-            string dataPath = @"Data\Logins.txt";
-            string[] loginInfoArray;
-            (string userName, string password) loginInfoTuple;
-
-            //
-            // Display Header
-            //
-            Theme.DisplayScreenHeader("Password Recovery");
-
-            //
-            // Prompt user for username
-            //
-            userName = Theme.ReadWrite("Enter username: ");
-            
-            //
-            // Prompt user for key
-            //
-            key = Validate.ReadInteger("Enter Key: ", 1, 26);
-
-            //
-            // Read File to retriave password
-            //
-            loginInfoArray = File.ReadAllLines(dataPath);
-            foreach (string loginInfoText in loginInfoArray)
-            {
-                if (loginInfoText.Contains(userName + ","))
-                {
-                    loginInfoArray = loginInfoText.Split(',');
-
-                    loginInfoTuple.userName = loginInfoArray[0];
-                    loginInfoTuple.password = loginInfoArray[1];
-                    encryptedPassword = loginInfoArray[1];
-
-                    //
-                    // Echo back encrypted password
-                    //
-                    Theme.Print($"Encrypted Password: {encryptedPassword}");
-
-                    //
-                    // Echo back decrypted Password
-                    //
-                    password = Cipher.Decrypt(encryptedPassword, key);
-                    Theme.Print($"Password: {password}");
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Theme.ColorPrint("If your password looks incorrect you provided the " +
-                        "wrong key, come back and try again!", ConsoleColor.Red);
-                }
-            }
-
-            //
-            // Menu prompt
-            //
-            Theme.DisplayMenuPrompt("Login Menu");
-        }
-        /// <summary>
-        /// ******************************************************
-        ///             Display Credentials
-        /// ******************************************************
-        /// </summary>
-        public static void DisplayCredentials()
-        {
-            Theme.DisplayScreenHeader("User Names and Passwords");
-            TableofUserNames();
-            Theme.DisplayMenuPrompt("Main Menu");
-        }
+        #endregion
     }
 }

@@ -8,6 +8,9 @@ namespace Capstone_Project
 {
     public class Validate
     {
+        #region VALIDATE NUMBERS
+
+        
         /// <summary>
         /// *****************************************************************
         ///             VALIDATE INTEGER, INPUT WHITE
@@ -197,6 +200,9 @@ namespace Capstone_Project
             }
             return thresholdValue;
         }
+        #endregion
+
+        #region VALIDATE STRING
         /// <summary>
         /// *****************************************************************
         ///             VALIDATE STRING INPUT FOR ROOM CHOICE
@@ -258,5 +264,6 @@ namespace Capstone_Project
             } while (!validString);
             return roomName;
         }
+        #endregion
     }
 }

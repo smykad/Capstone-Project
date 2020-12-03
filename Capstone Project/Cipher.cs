@@ -8,6 +8,7 @@ namespace Capstone_Project
 {
     class Cipher
     {
+        #region CIPHER
         /// <summary>
         /// ******************************************************
         ///             CHIPHER METHOD
@@ -62,5 +63,6 @@ namespace Capstone_Project
         {
             return Encrypt(input, 26 - key);
         }
+        #endregion
     }
 }

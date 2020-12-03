@@ -8,29 +8,7 @@ namespace Capstone_Project
 {
     class Picture
     {
-        /// <summary>
-        /// *****************************************************************************
-        /// *                             HOUSE IN ASCII ART                            *
-        /// *****************************************************************************
-        /// *                                       /\                                  *
-        /// *                                  /\  //\\                                 *
-        /// *                           /\    //\\///\\\        /\                      *
-        /// *                          //\\  ///\////\\\\  /\  //\\                     *
-        /// *             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \                    *
-        /// *            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \                   *
-        /// *           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       *          *
-        /// *          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \     /|\         *
-        /// *         / ^ ^  ^ \ ^  _\___________________|  |_____^ ^  \   /||o\        *
-        /// *        / ^^  ^ ^ ^\  /______________________________\ ^ ^ \ /|o|||\       *
-        /// *       /  ^  ^^ ^ ^  /________________________________\  ^  /|||||o|\      *
-        /// *      /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\     *
-        /// *     / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |         *
-        /// *    / ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo  *
-        /// *    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo  *
-        /// *                                                                           *
-        /// *****************************************************************************
-        /// </summary>
-
+        #region ART
         /// <summary>
         /// *****************************************************************************
         /// *                           CLOSING IN ASCII ART                            *
@@ -46,7 +24,6 @@ namespace Capstone_Project
         /// *                                 (_/                                       *
         /// *****************************************************************************
         ///</summary>
-
         public static void PrintClosing()
         {
             PrintPicture(
@@ -127,11 +104,26 @@ namespace Capstone_Project
 
 
         }
-       
-
         /// <summary>
         /// *****************************************************************************
         /// *                  DISPLAY HOUSE ASCII ART  IN COLOR                        *
+        /// *****************************************************************************
+        /// *                                       /\                                  *
+        /// *                                  /\  //\\                                 *
+        /// *                           /\    //\\///\\\        /\                      *
+        /// *                          //\\  ///\////\\\\  /\  //\\                     *
+        /// *             /\          /  ^ \/^ ^/^  ^  ^ \/^ \/  ^ \                    *
+        /// *            / ^\    /\  / ^   /  ^/ ^ ^ ^   ^\ ^/  ^^  \                   *
+        /// *           /^   \  / ^\/ ^ ^   ^ / ^  ^    ^  \/ ^   ^  \       *          *
+        /// *          /  ^ ^ \/^  ^\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \     /|\         *
+        /// *         / ^ ^  ^ \ ^  _\___________________|  |_____^ ^  \   /||o\        *
+        /// *        / ^^  ^ ^ ^\  /______________________________\ ^ ^ \ /|o|||\       *
+        /// *       /  ^  ^^ ^ ^  /________________________________\  ^  /|||||o|\      *
+        /// *      /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||\     *
+        /// *     / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |         *
+        /// *    / ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo  *
+        /// *    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo  *
+        /// *                                                                           *
         /// *****************************************************************************
         /// </summary>
         public static void PrintImage()
@@ -255,20 +247,37 @@ namespace Capstone_Project
                 @"    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
                 ConsoleColor.White);
         }
+        #endregion
 
-
-        /// <summary>
+        #region IMAGE COLORING
         /// *****************************************************************************
         /// *                  METHODS FOR COLORING THE IMAGE                           *
         /// *****************************************************************************
-        /// </summary>
 
-        public static void PrintPicture(params object[] arguments)
+        /// <summary>
+        /// *****************************************************************************
+        ///             PRINT PICTURE
+        /// *****************************************************************************
+        /// </summary>
+        /// <param name="arguments"></param>
+        static void PrintPicture(params object[] arguments)
         {
+            //
+            // Initialize lists for input
+            //
             List<ConsoleColor> colors = new List<ConsoleColor>();
             List<string> images = new List<string>();
+
+
+            // 
+            // Iterate through the arguments entered
+            //
             foreach (object argument in arguments)
             {
+
+                //
+                // Filter through the arguments
+                //
                 if (argument.GetType() == typeof(string))
                 {
                     images.Add(argument.ToString());
@@ -279,27 +288,64 @@ namespace Capstone_Project
                 }
             }
 
+            //
+            // Pass the lists as arrays to the "getImages" method
+            //
             getImages(colors.ToArray(), images.ToArray());
         }
-
+        /// <summary>
+        /// *****************************************************************************
+        ///         Get Images
+        /// ***************************************************************************** 
+        /// </summary>
+        /// <param name="colors"></param>
+        /// <param name="images"></param>
         static void getImages(ConsoleColor[] colors,
                                      string[] images)
         {
+            //
+            // Initialize variable i for iterations
+            //
             int i = 0;
             foreach (string image in images)
             {
+                //
+                // Use the method "SetColor" to set the color 
+                // based on the index of the array
+                //
                 SetColor(colors[i]);
+                //
+                // Write the first image
+                //
                 Console.Write(image);
+                //
+                // Increment iteration
+                //
                 i++;
+
+                //
+                // When you reach the last string to write it goes to a new line
+                //
                 if (i == images.Length)
                 {
                     Console.WriteLine();
                 }
             }
         }
+
+        /// <summary>
+        /// *****************************************************************************
+        ///         SET COLOR
+        /// *****************************************************************************                         
+        /// </summary>
+        /// <param name="color"></param>
         static void SetColor(ConsoleColor color)
         {
+            //
+            // Set the foreground color
+            //
             Console.ForegroundColor = color;
         }
+        #endregion
     }
 }

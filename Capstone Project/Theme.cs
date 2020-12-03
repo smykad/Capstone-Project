@@ -8,6 +8,9 @@ namespace Capstone_Project
 {
     class Theme
     {
+        #region SET COLORS
+
+        
         /// <summary>
         /// *****************************************************************
         ///             SET UP CONSOLE THEME
@@ -37,6 +40,11 @@ namespace Capstone_Project
         {
             Console.ForegroundColor = color;
         }
+        #endregion
+
+        #region COLOR MESSAGE
+
+
         /// <summary>
         /// *****************************************************************
         ///             MENU IN COLORS
@@ -66,6 +74,7 @@ namespace Capstone_Project
             Console.WriteLine($"\t{message}");
             SetForegroundColor();
         }
+        
         /// <summary>
         /// *****************************************************************
         ///             VALIDATION MESSAGE IN RED, INPUT IN WHITE
@@ -80,6 +89,112 @@ namespace Capstone_Project
             Console.Write($"\t{message}");
             SetColor(ConsoleColor.White);
         }
+
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT WITH TAB
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        public static void Print(string prompt)
+        {
+            Console.WriteLine($"\t{prompt}");
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             MENU CHOICE THEME
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public static string MenuChoice(string prompt)
+        {
+            string ret;
+            SetColor(ConsoleColor.DarkYellow);
+            Console.Write($"\t{prompt}");
+            SetColor(ConsoleColor.White);
+            ret = Console.ReadLine();
+            SetForegroundColor();
+            return ret;
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT MESSAGE IN THEME COLOR, INPUT IN WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="data"></param>
+        public static void PrintColorData(string message,
+                                          string data)
+        {
+            Console.Write($"\t{message}");
+            SetColor(ConsoleColor.White);
+            Console.Write($"{data}\n");
+            SetForegroundColor();
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             READ IN THEME COLOR, INPUT IN WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public static string ReadWrite(string prompt)
+        {
+            string ret;
+            Console.Write($"\t{prompt}");
+            SetColor(ConsoleColor.White);
+            ret = Console.ReadLine();
+            SetForegroundColor();
+            return ret;
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT RANGE MESSAGE WITH RED AND WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="dataOne"></param>
+        /// <param name="messageTwo"></param>
+        /// <param name="dataTwo"></param>
+        /// <param name="messageThree"></param>
+        public static void RangeMessage(string message,
+                                        string dataOne,
+                                        string messageTwo,
+                                        string dataTwo,
+                                        string messageThree)
+        {
+            SetColor(ConsoleColor.Red);
+            Console.Write($"\t{message}");
+            SetColor(ConsoleColor.White);
+            Console.Write(dataOne);
+            SetColor(ConsoleColor.Red);
+            Console.Write(messageTwo);
+            SetColor(ConsoleColor.White);
+            Console.Write(dataTwo);
+            SetColor(ConsoleColor.Red);
+            Console.Write(messageThree);
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             PRINT TABLE IN CYAN AND WHITE
+        /// *****************************************************************
+        /// </summary>
+        /// <param name="dataOne"></param>
+        /// <param name="dataTwo"></param>
+        public static void ColorTable(string dataOne,
+                                      string dataTwo)
+        {
+            SetColor(ConsoleColor.Cyan);
+            Console.Write(dataOne);
+            SetColor(ConsoleColor.White);
+            Console.Write(dataTwo);
+            SetForegroundColor();
+        }
+        #endregion
+
+        #region THEME
+
 
         /// <summary>
         /// *****************************************************************
@@ -102,6 +217,8 @@ namespace Capstone_Project
             // Print welcome Image
             //
             Picture.PrintImage();
+
+
             Console.WriteLine();
             Console.WriteLine();
             
@@ -198,99 +315,6 @@ namespace Capstone_Project
             Console.WriteLine();
             SetForegroundColor();
         }
-        /// <summary>
-        /// *****************************************************************
-        ///             PRINT WITH TAB
-        /// *****************************************************************
-        /// </summary>
-        /// <param name="prompt"></param>
-        public static void Print(string prompt)
-        {
-            Console.WriteLine($"\t{prompt}");
-        }
-        public static string MenuChoice(string prompt)
-        {
-            string ret;
-            SetColor(ConsoleColor.DarkYellow);
-            Console.Write($"\t{prompt}");
-            SetColor(ConsoleColor.White);
-            ret = Console.ReadLine();
-            SetForegroundColor();
-            return ret;
-        }
-        /// <summary>
-        /// *****************************************************************
-        ///             PRINT MESSAGE IN THEME COLOR, INPUT IN WHITE
-        /// *****************************************************************
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="data"></param>
-        public static void PrintColorData(string message,
-                                          string data)
-        {
-            Console.Write($"\t{message}");
-            SetColor(ConsoleColor.White);
-            Console.Write($"{data}\n");
-            SetForegroundColor();
-        }
-        /// <summary>
-        /// *****************************************************************
-        ///             READ IN THEME COLOR, INPUT IN WHITE
-        /// *****************************************************************
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <returns></returns>
-        public static string ReadWrite(string prompt)
-        {
-            string ret;
-            Console.Write($"\t{prompt}");
-            SetColor(ConsoleColor.White);
-            ret = Console.ReadLine();
-            SetForegroundColor();
-            return ret;
-        }
-        /// <summary>
-        /// *****************************************************************
-        ///             PRINT RANGE MESSAGE WITH RED AND WHITE
-        /// *****************************************************************
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="dataOne"></param>
-        /// <param name="messageTwo"></param>
-        /// <param name="dataTwo"></param>
-        /// <param name="messageThree"></param>
-        public static void RangeMessage(string message,
-                                        string dataOne,
-                                        string messageTwo,
-                                        string dataTwo,
-                                        string messageThree)
-        {
-            SetColor(ConsoleColor.Red);
-            Console.Write($"\t{message}");
-            SetColor(ConsoleColor.White);
-            Console.Write(dataOne);
-            SetColor(ConsoleColor.Red);
-            Console.Write(messageTwo);
-            SetColor(ConsoleColor.White);
-            Console.Write(dataTwo);
-            SetColor(ConsoleColor.Red);
-            Console.Write(messageThree);
-        }
-        /// <summary>
-        /// *****************************************************************
-        ///             PRINT TABLE IN CYAN AND WHITE
-        /// *****************************************************************
-        /// </summary>
-        /// <param name="dataOne"></param>
-        /// <param name="dataTwo"></param>
-        public static void ColorTable(string dataOne,
-                                      string dataTwo)
-        {
-            SetColor(ConsoleColor.Cyan);
-            Console.Write(dataOne);
-            SetColor(ConsoleColor.White);
-            Console.Write(dataTwo);
-            SetForegroundColor();
-        }
+        #endregion
     }
 }

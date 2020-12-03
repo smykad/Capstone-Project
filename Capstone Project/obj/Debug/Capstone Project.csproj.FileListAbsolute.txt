@@ -7,4 +7,3 @@ C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone 
 C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\obj\Debug\Capstone Project.csproj.CoreCompileInputs.cache
 C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\obj\Debug\Capstone Project.exe
 C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\obj\Debug\Capstone Project.pdb
-C:\Users\dougs\Documents\CIT 110\Capstone Application\Capstone Project\Capstone Project\obj\Debug\Capstone Project.csprojAssemblyReference.cache

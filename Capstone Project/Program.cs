@@ -21,7 +21,6 @@ namespace Capstone_Project
     {
         static void Main(string[] args)
         {
-            
             Theme.SetTheme();
             Theme.DisplayWelcomeScreen();
             Login.DisplayLoginMenuScreen();

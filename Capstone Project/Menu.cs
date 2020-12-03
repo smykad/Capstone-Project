@@ -9,9 +9,16 @@ namespace Capstone_Project
 {
     class Menu
     {
+        #region MAIN MENU
         /// <summary>
         /// *****************************************************************
         /// *                     Main Menu                                 *
+        /// *****************************************************************
+        /// *        A: Application Information                             *
+        /// *        B: Home Data Menu                                      *
+        /// *        C: Returning User Data                                 *
+        /// *        D: Stored Users and Passwords                          *
+        /// *                                                               *
         /// *****************************************************************
         /// </summary>
         public static void DisplayMenuScreen(string userName)
@@ -60,7 +67,7 @@ namespace Capstone_Project
                         break;
 
                     case "d":
-                        Login.DisplayCredentials();
+                        DisplayCredentials();
                         break;
 
                     case "q":
@@ -78,9 +85,38 @@ namespace Capstone_Project
 
             } while (!quitMenu);
         }
+#endregion
+
+        #region MENU OPTIONS
         /// <summary>
         /// *****************************************************************
-        ///             Display Returning User Information
+        ///         A. Display Application Information
+        /// *****************************************************************
+        /// </summary>
+        static void DisplayApplicationInformation()
+        {
+            Theme.DisplayScreenHeader("Capstone Project CIT 110");
+            Theme.ColorPrint("*************************************************************************", ConsoleColor.DarkMagenta);
+            Theme.ColorPrint("This application was developed using Visual Studio 2019 Community Edition", ConsoleColor.Cyan);
+            Console.WriteLine();
+            Theme.ColorTable("\tCreated: ", "11/19/2020\n");
+            Console.WriteLine();
+            Theme.ColorTable("\tRevised: ", "12/2/2020\n");
+            Console.WriteLine();
+            Theme.ColorTable("\tApplicationg written by: ", "Doug Smyka\n\n");
+            Console.WriteLine();
+            Theme.ColorPrint("With the assistance of", ConsoleColor.Yellow);
+            Console.WriteLine();
+            Theme.ColorPrint("Wyatt J. Miller", ConsoleColor.White);
+            Theme.ColorPrint("Noah Osterhout", ConsoleColor.White);
+            Theme.ColorPrint("Peter Steele", ConsoleColor.White);
+            Console.WriteLine();
+            Theme.ColorPrint("*************************************************************************", ConsoleColor.DarkMagenta);
+            Theme.DisplayMenuPrompt("Main Menu");
+        }
+        /// <summary>
+        /// *****************************************************************
+        ///             C: Display Returning User Information
         /// *****************************************************************
         /// </summary>
         /// <param name="userName"></param>
@@ -118,32 +154,52 @@ namespace Capstone_Project
             //
             Theme.DisplayMenuPrompt("Main Menu");
         }
-
         /// <summary>
-        /// *****************************************************************
-        ///         Display Application Information
-        /// *****************************************************************
+        /// ******************************************************
+        ///             D. Display Credentials
+        /// ******************************************************
         /// </summary>
-        static void DisplayApplicationInformation()
+        public static void DisplayCredentials()
         {
-            Theme.DisplayScreenHeader("Capstone Project CIT 110");
-            Theme.ColorPrint("*************************************************************************", ConsoleColor.DarkMagenta);
-            Theme.ColorPrint("This application was developed using Visual Studio 2019 Community Edition", ConsoleColor.Cyan);
-            Console.WriteLine();
-            Theme.ColorTable("\tCreated: ", "11/19/2020\n");
-            Console.WriteLine();
-            Theme.ColorTable("\tRevised: ","12/2/2020\n");
-            Console.WriteLine();
-            Theme.ColorTable("\tApplicationg written by: ", "Doug Smyka\n\n");
-            Console.WriteLine();
-            Theme.ColorPrint("With the assistance of", ConsoleColor.Yellow);
-            Console.WriteLine();
-            Theme.ColorPrint("Wyatt J. Miller", ConsoleColor.White);
-            Theme.ColorPrint("Noah Osterhout", ConsoleColor.White);
-            Theme.ColorPrint("Peter Steele", ConsoleColor.White);
-            Console.WriteLine();
-            Theme.ColorPrint("*************************************************************************", ConsoleColor.DarkMagenta);
+            Theme.DisplayScreenHeader("User Names and Passwords");
+            TableofUserNames();
             Theme.DisplayMenuPrompt("Main Menu");
         }
+#endregion
+
+        #region DISPLAY INFO
+        /// <summary>
+        /// ******************************************************
+        ///             DISPLAY USERNAMES AND ENCRYPTED PASSWORDS
+        /// ******************************************************
+        /// </summary>
+        static void TableofUserNames()
+        {
+            //
+            // Initialize variables
+            //
+            string dataPath = @"Data\Logins.txt";
+            string[] loginInfoArray;
+            (string userName, string password) loginInfoTuple;
+
+            //
+            // Read File
+            //
+            loginInfoArray = File.ReadAllLines(dataPath);
+
+            //
+            // Display Data in a Table
+            //
+            Console.WriteLine(string.Format($"\t{"User Name",10} \t {"Password",20}"));
+            Console.WriteLine();
+            foreach (string loginInfoText in loginInfoArray)
+            {
+                loginInfoArray = loginInfoText.Split(',');
+
+                Console.WriteLine(string.Format($"\t{ loginInfoTuple.userName = loginInfoArray[0],10} \t {loginInfoTuple.password = loginInfoArray[1],20}"));
+            }
+
+        }
+        #endregion
     }
 }
