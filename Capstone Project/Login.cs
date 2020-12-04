@@ -68,7 +68,6 @@ namespace Capstone_Project
                         break;
 
                     case "q":
-                        Theme.DisplayClosingScreen();
                         quitMenu = true;
                         break;
 
@@ -153,7 +152,7 @@ namespace Capstone_Project
                     //
                     // Invalid login credentials
                     // Send back to login menu
-                    //
+                    validLogin = true;
                     Theme.DisplayMenuPrompt("Login Menu");
                     DisplayLoginMenuScreen();
                 }

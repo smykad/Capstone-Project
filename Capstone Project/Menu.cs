@@ -100,7 +100,7 @@ namespace Capstone_Project
             Console.WriteLine();
             Theme.ColorTable("\tCreated: ", "11/19/2020\n");
             Console.WriteLine();
-            Theme.ColorTable("\tRevised: ", "12/2/2020\n");
+            Theme.ColorTable("\tRevised: ", "12/4/2020\n");
             Console.WriteLine();
             Theme.ColorTable("\tApplicationg written by: ", "Doug Smyka\n\n");
             Console.WriteLine();
