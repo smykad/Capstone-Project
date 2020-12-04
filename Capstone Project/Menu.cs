@@ -71,7 +71,6 @@ namespace Capstone_Project
                         break;
 
                     case "q":
-
                         quitMenu = true;
                         break;
 
@@ -146,6 +145,7 @@ namespace Capstone_Project
                 if (loginInfoText.Contains(userName + "'s"))
                 {
                     Theme.Print($"{loginInfoText}");
+                    Console.WriteLine();
                 }
             }
 

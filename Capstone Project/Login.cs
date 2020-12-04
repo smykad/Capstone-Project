@@ -45,7 +45,8 @@ namespace Capstone_Project
                 Theme.ColorMenu("L: ", "Log in");
                 Theme.ColorMenu("A: ", "Register");
                 Theme.ColorMenu("B: ", "Recover Password");
-                
+                Theme.ColorMenu("Q: ", "Quit Application");
+
                 menuChoice = Theme.MenuChoice("\n\n\tEnter Choice: ").ToLower();
 
                 //
@@ -64,6 +65,11 @@ namespace Capstone_Project
 
                     case "b":
                         RecoverPassword();
+                        break;
+
+                    case "q":
+                        Theme.DisplayClosingScreen();
+                        quitMenu = true;
                         break;
 
                     default:
@@ -207,7 +213,6 @@ namespace Capstone_Project
             //
             Console.WriteLine();
             Theme.Print("Your login credentials are as followed: ");
-            Theme.PrintColorData("Username: ", userName);
             Theme.PrintColorData("User name: ", userName);
             Theme.PrintColorData("Password: ", password);
             Theme.PrintColorData("Your key: ", $"{key}");

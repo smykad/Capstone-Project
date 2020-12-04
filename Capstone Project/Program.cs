@@ -24,7 +24,6 @@ namespace Capstone_Project
             Theme.SetTheme();
             Theme.DisplayWelcomeScreen();
             Login.DisplayLoginMenuScreen();
-            Theme.DisplayClosingScreen();
         }
     }
 }
