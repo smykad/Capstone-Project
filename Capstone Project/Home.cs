@@ -209,92 +209,103 @@ namespace Capstone_Project
 
             Console.WriteLine();
 
-            //
-            // Get home name from user
-            //
-            homeName = Theme.ReadWrite("Enter home name: ");
-            userNameAndHomeEntry = userName + "'s " + homeName + ": ";
-
-            //
-            // Save users name and home name to file
-            //
-            File.AppendAllText(dataPath, userNameAndHomeEntry);
-
-
-            //
-            // Display Number of Rooms
-            //
-            Console.WriteLine();
-            Console.WriteLine();
-            Theme.PrintColorData($"Number of Rooms: ", $"{numberOfRooms}");
-            Console.WriteLine();
-
-
-            //
-            // Display Room Types
-            //
-            Theme.Print("Types of Rooms:\n");
-            Theme.ColorPrint("****************************************************\n" +
-                             "\t* Master Bedroom * Bedroom * Living Room * Hallway *\n" +
-                             "\t*     * Kitchen * Bathroom * Study * Office *      *\n" +
-                             "\t****************************************************\n",
-                             ConsoleColor.Cyan);
-
-            //
-            // Get information from user
-            //
-
-            for (int i = 0; i < numberOfRooms; i++)
+            if (numberOfRooms == 0)
             {
-                Console.Write("\tEnter Room Name: ");
-                roomName = Validate.ReadString();
-
-                Console.WriteLine();
-                length = Validate.ReadDouble($"Enter length of {roomName}: ");
-                width = Validate.ReadDouble($"Enter width of {roomName}: ");
-                Console.WriteLine();
-                roomSize = length * width;
-
-                strRmSize = roomSize.ToString();
-
-                //
-                // Send information to arrays
-                //
-                roomSizes[i] = roomSize;
-                roomNames[i] = roomName;
-
-                // ***********************
-                // Write user info to file
-                // ***********************
-
-                //
-                // If not the last item
-                //
-                if (i < numberOfRooms - 1)
-                {
-                    roomAndSizes = roomName + ": " + strRmSize + "sq ft, ";
-                    File.AppendAllText(dataPath, roomAndSizes);
-                }
-
-                //
-                // If last room
-                //
-                if (i == numberOfRooms - 1)
-                {
-                    sum = roomSizes.Sum();
-                    roomAndSizes = roomName + ": " + strRmSize + "sq ft, Total Square Footage: " + sum + "\n";
-                    File.AppendAllText(dataPath, roomAndSizes);
-                }
+                Theme.ColorPrint("Please enter number of rooms first", ConsoleColor.Red);
+                Console.Beep(200, 500);
+                sizes = null;
+                names = null;
+                homeName = "Home";
             }
+            else
+            {
 
-            sizes = roomSizes;
-            names = roomNames;
+                //
+                // Get home name from user
+                //
+                homeName = Theme.ReadWrite("Enter home name: ");
+                userNameAndHomeEntry = userName + "'s " + homeName + ": ";
 
-            //
-            // Menu Prompt
-            //
-            Theme.DisplayMenuPrompt($"{userName}'s {homeName} Data Menu");
+                //
+                // Save users name and home name to file
+                //
+                File.AppendAllText(dataPath, userNameAndHomeEntry);
 
+
+                //
+                // Display Number of Rooms
+                //
+                Console.WriteLine();
+                Console.WriteLine();
+                Theme.PrintColorData($"Number of Rooms: ", $"{numberOfRooms}");
+                Console.WriteLine();
+
+
+                //
+                // Display Room Types
+                //
+                Theme.Print("Types of Rooms:\n");
+                Theme.ColorPrint("****************************************************\n" +
+                                 "\t* Master Bedroom * Bedroom * Living Room * Hallway *\n" +
+                                 "\t*     * Kitchen * Bathroom * Study * Office *      *\n" +
+                                 "\t****************************************************\n",
+                                 ConsoleColor.Cyan);
+
+                //
+                // Get information from user
+                //
+
+                for (int i = 0; i < numberOfRooms; i++)
+                {
+                    Console.Write("\tEnter Room Name: ");
+                    roomName = Validate.ReadString();
+
+                    Console.WriteLine();
+                    length = Validate.ReadDouble($"Enter length of {roomName}: ");
+                    width = Validate.ReadDouble($"Enter width of {roomName}: ");
+                    Console.WriteLine();
+                    roomSize = length * width;
+
+                    strRmSize = roomSize.ToString();
+
+                    //
+                    // Send information to arrays
+                    //
+                    roomSizes[i] = roomSize;
+                    roomNames[i] = roomName;
+
+                    // ***********************
+                    // Write user info to file
+                    // ***********************
+
+                    //
+                    // If not the last item
+                    //
+                    if (i < numberOfRooms - 1)
+                    {
+                        roomAndSizes = roomName + ": " + strRmSize + "sq ft, ";
+                        File.AppendAllText(dataPath, roomAndSizes);
+                    }
+
+                    //
+                    // If last room
+                    //
+                    if (i == numberOfRooms - 1)
+                    {
+                        sum = roomSizes.Sum();
+                        roomAndSizes = roomName + ": " + strRmSize + "sq ft, Total Square Footage: " + sum + "\n";
+                        File.AppendAllText(dataPath, roomAndSizes);
+                    }
+                }
+
+                sizes = roomSizes;
+                names = roomNames;
+            }
+                //
+                // Menu Prompt
+                //
+                Theme.DisplayMenuPrompt($"{userName}'s {homeName} Data Menu");
+            
         }
 
 
