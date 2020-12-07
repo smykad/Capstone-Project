@@ -321,14 +321,21 @@ namespace Capstone_Project
             
             Theme.ColorPrint(string.Format($"{"Room Name",12}    {"Square Footage",12}\n"), ConsoleColor.Yellow);
 
-            for (int i = 0; i < roomSizes.Length; i++)
+            if (roomSizes != null)
             {
-                string room = roomSizes[i].ToString("n2");
-                string roomName = roomNames[i];
-                
-                Theme.ColorTable(string.Format($"{roomName,17}"), string.Format($"{room,17}\n"));
-            }
+                for (int i = 0; i < roomSizes.Length; i++)
+                {
+                    string room = roomSizes[i].ToString("n2");
+                    string roomName = roomNames[i];
 
+                    Theme.ColorTable(string.Format($"{roomName,17}"), string.Format($"{room,17}\n"));
+                }
+            }
+            else
+            {
+                Theme.ColorPrint("No data has been entered.", ConsoleColor.Red);
+                Console.Beep(200, 500);
+            }
             Console.WriteLine("\n");
 
             //
@@ -353,12 +360,15 @@ namespace Capstone_Project
         /// <param name="roomsizes"></param>
         static void DisplayTotalSqFtData(double[] roomSizes)
         {
-            double sum = roomSizes.Sum();
-            string stringSum = sum.ToString("n2");
+            if (roomSizes != null)
+            {
+                double sum = roomSizes.Sum();
+                string stringSum = sum.ToString("n2");
 
-            Theme.ColorTable(string.Format($"{"Total Sq Ft:",17}"), string.Format($"{stringSum,17}\n"));
-            Console.WriteLine();
-            Console.WriteLine();
+                Theme.ColorTable(string.Format($"{"Total Sq Ft:",17}"), string.Format($"{stringSum,17}\n"));
+                Console.WriteLine();
+                Console.WriteLine();
+            }
         }
         #endregion
     }
